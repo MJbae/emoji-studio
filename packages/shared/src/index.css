@@ -1,0 +1,46 @@
+@import 'tailwindcss' source('.');
+
+@theme {
+  --font-sans: 'Nunito', sans-serif;
+
+  --color-primary: #8b5cf6;
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #7c3aed;
+  
+  --color-surface: #ffffff;
+  --color-surface-dark: #fdfbf7; /* Warm tint */
+  
+  --color-text: #1e1b4b; /* Deep Indigo/Violet */
+  --color-text-muted: #64748b;
+  
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-danger: #ef4444;
+  --color-danger-light: #fee2e2;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes consultPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.15); }
+  50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
