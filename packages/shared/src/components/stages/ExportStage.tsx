@@ -1,7 +1,6 @@
-import { Download, Settings, FileDown, Image as ImageIcon, Check } from 'lucide-react';
+import { Download, FileDown, Image as ImageIcon } from 'lucide-react';
 import type { PlatformId, PlatformSpec } from '@/types/domain';
 import { Button } from '@/components/ui/Button';
-import { cn } from '@/utils/cn';
 
 interface ExportStageProps {
   platforms: Record<PlatformId, PlatformSpec>;
@@ -15,16 +14,16 @@ interface ExportStageProps {
 }
 
 function ExportStage({
-  platforms,
-  selectedPlatform,
-  onPlatformChange,
+  platforms: _platforms,
+  selectedPlatform: _selectedPlatform,
   stickerCount,
   isExporting,
   exportProgress,
   onExport,
   onBack,
 }: ExportStageProps) {
-  const currentSpec = platforms[selectedPlatform];
+  void _platforms;
+  void _selectedPlatform;
 
   return (
     <section data-stage="export" className="max-w-4xl mx-auto space-y-8">
@@ -33,74 +32,38 @@ function ExportStage({
           <FileDown size={14} />
           마지막 단계
         </div>
-        <h2 className="text-3xl font-bold text-text">스티커 팩 내보내기</h2>
-        <p className="text-text-muted">플랫폼을 선택하고 스티커 세트를 다운로드하세요.</p>
+        <h2 className="text-3xl font-bold text-text">이모지 팩 내보내기</h2>
+        <p className="text-text-muted">이모지 세트를 다운로드하세요.</p>
       </div>
 
       <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
         <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-          <Settings size={16} className="text-primary" />
+          <FileDown size={16} className="text-[#06C755]" />
           대상 플랫폼
         </h3>
 
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
-          role="radiogroup"
-          aria-label="Select export platform"
-        >
-          {(Object.entries(platforms) as [PlatformId, PlatformSpec][]).map(([key, spec]) => {
-            const isSelected = selectedPlatform === key;
+        <div className="relative p-4 rounded-xl border-2 border-[#06C755] bg-[#06C755]/5">
+          <p className="font-bold text-slate-800 text-sm">LINE Emoji</p>
+          <p className="text-xs text-text-muted mb-3">LINE emoji format</p>
 
-            return (
-              <button
-                key={key}
-                role="radio"
-                aria-checked={isSelected}
-                aria-label={`Platform: ${spec.label}`}
-                data-testid={`platform-${key}`}
-                onClick={() => onPlatformChange(key)}
-                className={cn(
-                  'relative p-4 rounded-xl border-2 text-left transition-all',
-                  isSelected
-                    ? 'border-primary bg-primary/5'
-                    : 'border-slate-100 hover:border-slate-300 bg-white',
-                )}
-              >
-                {isSelected && (
-                  <div className="absolute top-3 right-3 text-primary">
-                    <Check size={18} />
-                  </div>
-                )}
-                <p className="font-bold text-slate-800 text-sm">{spec.label}</p>
-                <p className="text-xs text-text-muted mb-3">{spec.description}</p>
-
-                <div className="space-y-1 text-[10px] text-slate-600 bg-slate-50 p-2 rounded border border-slate-100">
-                  <div className="flex justify-between">
-                    <span>콘텐츠</span>
-                    <span className="font-mono">
-                      {spec.content.width}×{spec.content.height}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>메인</span>
-                    <span className="font-mono">
-                      {spec.main ? `${spec.main.width}×${spec.main.height}` : '없음'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>탭</span>
-                    <span className="font-mono">
-                      {spec.tab.width}×{spec.tab.height}
-                    </span>
-                  </div>
-                  <div className="flex justify-between pt-1 border-t border-dashed border-slate-300">
-                    <span>수량</span>
-                    <span className="font-mono">{spec.count}</span>
-                  </div>
-                </div>
-              </button>
-            );
-          })}
+          <div className="space-y-1 text-[10px] text-slate-600 bg-slate-50 p-2 rounded border border-slate-100">
+            <div className="flex justify-between">
+              <span>콘텐츠</span>
+              <span className="font-mono">180×180</span>
+            </div>
+            <div className="flex justify-between">
+              <span>메인</span>
+              <span className="font-mono">없음</span>
+            </div>
+            <div className="flex justify-between">
+              <span>탭</span>
+              <span className="font-mono">96×74</span>
+            </div>
+            <div className="flex justify-between pt-1 border-t border-dashed border-slate-300">
+              <span>수량</span>
+              <span className="font-mono">40</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -112,7 +75,7 @@ function ExportStage({
         <div>
           <h3 className="text-xl font-bold text-text">내보내기 준비 완료</h3>
           <p className="text-text-muted text-sm mt-1">
-            {stickerCount}개 스티커가 {currentSpec?.label} 형식으로 준비됨
+            {stickerCount}개 이모지가 LINE Emoji 형식으로 준비됨
           </p>
         </div>
 
@@ -153,10 +116,10 @@ function ExportStage({
             icon={<Download size={18} />}
             size="lg"
             className="w-full max-w-md mx-auto"
-            aria-label={`Download ${currentSpec?.label} ZIP`}
+            aria-label="Download LINE Emoji ZIP"
             data-testid="download-btn"
           >
-            {currentSpec?.label} ZIP 다운로드
+            LINE Emoji ZIP 다운로드
           </Button>
         )}
       </div>

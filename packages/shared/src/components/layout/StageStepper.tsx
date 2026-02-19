@@ -19,7 +19,7 @@ const FULL_STEPS: StepDef[] = [
   { id: 'input', label: '컨셉 입력', shortLabel: '입력' },
   { id: 'strategy', label: 'AI 전략', shortLabel: '전략' },
   { id: 'character', label: '캐릭터', shortLabel: '캐릭터' },
-  { id: 'stickers', label: '스티커', shortLabel: '스티커' },
+  { id: 'stickers', label: '이모지', shortLabel: '이모지' },
   { id: 'postprocess', label: '후처리', shortLabel: '후처리' },
   { id: 'metadata', label: '메타데이터', shortLabel: '메타' },
   { id: 'export', label: '내보내기', shortLabel: '내보내기' },

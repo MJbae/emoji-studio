@@ -13,11 +13,11 @@ function AppShell({ children, hasApiKey, onOpenSettings }: AppShellProps) {
       <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shadow-sm">
-              <Sparkles className="text-primary" size={20} />
+            <div className="w-10 h-10 bg-[#06C755]/10 rounded-xl flex items-center justify-center shadow-sm">
+              <Sparkles className="text-[#06C755]" size={20} />
             </div>
-            <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-primary-dark tracking-tight">
-              Emoticon Studio
+            <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-[#06C755] to-[#04A647] tracking-tight">
+              LINE Emoji Studio
             </h1>
           </div>
 

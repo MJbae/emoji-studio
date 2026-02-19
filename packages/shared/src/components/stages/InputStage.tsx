@@ -19,7 +19,7 @@ const LANG_META: Record<(typeof LANGUAGES)[number], { flag: string; native: stri
 
 function InputStage({ onSubmit, initialData }: InputStageProps) {
   const [data, setData] = useState<UserInput>(
-    initialData ?? { concept: '', referenceImage: null, language: 'Korean', noText: false },
+    initialData ?? { concept: '', referenceImage: null, language: 'Korean', noText: true },
   );
   const [preview, setPreview] = useState<string | null>(null);
   const conceptId = useId();
@@ -47,7 +47,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
           <Sparkles size={14} />
           1단계
         </div>
-        <h2 className="text-3xl font-bold text-text">스티커 세트 시작하기</h2>
+        <h2 className="text-3xl font-bold text-text">이모지 세트 시작하기</h2>
         <p className="text-text-muted">캐릭터 컨셉을 설명하면 AI가 자동으로 생성합니다.</p>
       </div>
 
@@ -73,7 +73,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
         </div>
 
         <fieldset className="space-y-1.5">
-          <legend className="block text-sm font-medium text-slate-700 mb-2">Target Language</legend>
+          <legend className="block text-sm font-medium text-slate-700 mb-2">타깃 시장</legend>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Target language">
             {LANGUAGES.map((lang) => {
               const meta = LANG_META[lang];
@@ -86,7 +86,6 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                   role="radio"
                   aria-checked={isSelected}
                   aria-label={`Language: ${lang}`}
-                  disabled={data.noText}
                   data-testid={`lang-${lang.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setData((prev) => ({ ...prev, language: lang }))}
                   className={cn(
@@ -94,7 +93,6 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                     isSelected
                       ? 'bg-primary/5 border-primary text-primary-dark'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-600',
-                    data.noText && 'opacity-50 cursor-not-allowed bg-slate-100 hover:bg-slate-100 text-slate-400 border-slate-200',
                   )}
                 >
                   <span className="text-lg grayscale-[0.5]">{meta.flag}</span>
@@ -104,34 +102,6 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
             })}
           </div>
         </fieldset>
-
-        <div className="flex items-center justify-between p-4 rounded-lg border border-slate-200 bg-slate-50">
-          <div>
-            <p className="text-sm font-medium text-slate-700">텍스트 없는 스티커</p>
-            <p className="text-xs text-text-muted mt-0.5">
-              텍스트 없이 이미지만으로 스티커를 생성합니다 (Flash 모델 사용)
-            </p>
-          </div>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={data.noText ?? false}
-            aria-label="텍스트 없는 스티커 모드"
-            data-testid="no-text-toggle"
-            onClick={() => setData((prev) => ({ ...prev, noText: !prev.noText }))}
-            className={cn(
-              'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
-              data.noText ? 'bg-primary' : 'bg-slate-300',
-            )}
-          >
-            <span
-              className={cn(
-                'inline-block h-4 w-4 rounded-full bg-white transition-transform',
-                data.noText ? 'translate-x-6' : 'translate-x-1',
-              )}
-            />
-          </button>
-        </div>
 
         <div className="space-y-1.5">
           <label htmlFor={fileId} className="block text-sm font-medium text-slate-700">

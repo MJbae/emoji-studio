@@ -23,7 +23,6 @@ import {
   generateEmoteIdeas,
   generateSingleEmote,
   generateMetadata,
-  checkTextNaturalness,
 } from '@/services/gemini/orchestrator';
 import { processImageWithBgRemoval } from '@/services/image/backgroundRemoval';
 import { performOutline } from '@/services/image/outlineGeneration';
@@ -132,8 +131,6 @@ function App() {
     outlineOpacity: 100,
   });
   const [metaLanguages, setMetaLanguages] = useState<Set<LanguageCode>>(new Set(['en']));
-  const [naturalCheckLoading, setNaturalCheckLoading] = useState(false);
-  const [excludedStickers, setExcludedStickers] = useState<Map<number, string>>(new Map());
 
   // Per-stage async state
   const [strategyLoading, setStrategyLoading] = useState(false);
@@ -186,42 +183,7 @@ function App() {
 
   useEffect(() => {
     if (stage !== 'postprocess' || gridItems.length === 0) return;
-
     setSelectedImageIds(new Set(gridItems.map((i) => i.id)));
-
-    async function runNaturalnessCheck() {
-      setNaturalCheckLoading(true);
-      setExcludedStickers(new Map());
-      try {
-        const state = useAppStore.getState();
-        const doneStickers = state.stickers.filter((s) => s.status === 'done' && s.imageUrl);
-        const images = doneStickers.map((s) => s.imageUrl!);
-        const results = await checkTextNaturalness(images, state.userInput?.language ?? 'Korean');
-
-        const excluded = new Map<number, string>();
-        const excludedIds = new Set<string>();
-        for (const r of results) {
-          const sticker = doneStickers[r.index];
-          if (!r.isNatural && sticker) {
-            excluded.set(sticker.id, r.reason);
-            excludedIds.add(String(sticker.id));
-          }
-        }
-
-        setExcludedStickers(excluded);
-        setSelectedImageIds((prev) => {
-          const next = new Set(prev);
-          excludedIds.forEach((id) => next.delete(id));
-          return next;
-        });
-      } catch (e) {
-        console.error('Text naturalness check failed:', e);
-      } finally {
-        setNaturalCheckLoading(false);
-      }
-    }
-
-    runNaturalnessCheck();
   }, [stage, gridItems]);
 
   // ---------------------------------------------------------------------------
@@ -701,8 +663,6 @@ function App() {
             onOptionsChange={setProcessingOptions}
             previewSrc={previewSrc}
             isProcessing={postProcessing}
-            naturalCheckLoading={naturalCheckLoading}
-            excludedStickers={excludedStickers}
             onContinue={async () => {
               await applyPostProcessing();
               markCompleted('postprocess');

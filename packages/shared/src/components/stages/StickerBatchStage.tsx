@@ -53,8 +53,8 @@ function StickerBatchStage({
         data-phase="idle"
         className="max-w-2xl mx-auto space-y-6 text-center"
       >
-        <h2 className="text-3xl font-bold text-text">스티커 생성</h2>
-        <p className="text-text-muted">세트의 {totalCount}개 스티커를 자동으로 생성합니다…</p>
+        <h2 className="text-3xl font-bold text-text">이모지 생성</h2>
+        <p className="text-text-muted">세트의 {totalCount}개 이모지를 자동으로 생성합니다…</p>
         <RefreshCw className="w-8 h-8 animate-spin text-primary mx-auto" />
       </section>
     );
@@ -68,7 +68,7 @@ function StickerBatchStage({
     >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 sticky top-16 z-30 gap-4 shadow-sm transition-all">
         <div className="space-y-1">
-          <h2 className="text-lg font-bold text-text">스티커 세트 생성 중</h2>
+          <h2 className="text-lg font-bold text-text">이모지 세트 생성 중</h2>
           <div role="status" aria-live="polite" className="text-sm text-text-muted">
             {isGenerating
               ? `처리 중… ${doneCount} / ${totalCount}`

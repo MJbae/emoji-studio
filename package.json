@@ -1,8 +1,8 @@
 {
-  "name": "emoticon-studio",
+  "name": "line-emoji-studio",
   "private": true,
   "version": "0.1.0",
-  "description": "AI-powered emoticon pack creator with cross-platform desktop support",
+  "description": "AI-powered LINE Emoji studio",
   "type": "module",
   "workspaces": [
     "packages/*"

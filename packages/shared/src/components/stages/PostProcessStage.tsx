@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Wand2, Image as ImageIcon, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
+import { Wand2, Image as ImageIcon } from 'lucide-react';
 import type { ProcessingOptions as ProcessingOptionsType } from '@/types/domain';
 import { ProcessingOptions } from '@/components/ui/ProcessingOptions';
 import { Button } from '@/components/ui/Button';
@@ -11,8 +11,6 @@ interface PostProcessStageProps {
   onOptionsChange: (opts: ProcessingOptionsType) => void;
   previewSrc: string | null;
   isProcessing: boolean;
-  naturalCheckLoading?: boolean;
-  excludedStickers?: Map<number, string>;
   onContinue: () => void;
   onBack: () => void;
 }
@@ -25,13 +23,10 @@ function PostProcessStage({
   onOptionsChange,
   previewSrc,
   isProcessing,
-  naturalCheckLoading = false,
-  excludedStickers = new Map(),
   onContinue,
   onBack,
 }: PostProcessStageProps) {
   const [previewBg, setPreviewBg] = useState<PreviewBg>('white');
-  const excludedCount = excludedStickers.size;
 
   return (
     <section data-stage="postprocess" className="max-w-7xl mx-auto space-y-6">
@@ -40,7 +35,7 @@ function PostProcessStage({
           <Wand2 size={14} />
           후처리
         </div>
-        <h2 className="text-3xl font-bold text-text">스티커 보정하기</h2>
+        <h2 className="text-3xl font-bold text-text">이모지 보정하기</h2>
         <p className="text-text-muted">
           처리 옵션을 조정하세요. 다음 단계로 진행하면 자동 적용됩니다.
         </p>
@@ -49,39 +44,6 @@ function PostProcessStage({
       <p className="text-sm text-text-muted text-center">
         {selectedIds.size}개 이미지에 적용됩니다.
       </p>
-
-      {naturalCheckLoading && (
-        <div className="flex items-center justify-center gap-2 py-3 px-4 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700">
-          <Loader2 size={16} className="animate-spin" />
-          텍스트 자연스러움 검사 중...
-        </div>
-      )}
-
-      {!naturalCheckLoading && excludedCount > 0 && (
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 py-3 px-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700">
-            <AlertTriangle size={16} className="shrink-0" />
-            {excludedCount}개의 스티커가 부자연스러운 텍스트로 제외되었습니다
-          </div>
-          <ul className="space-y-1 px-4">
-            {[...excludedStickers.entries()].map(([id, reason]) => (
-              <li key={id} className="text-xs text-text-muted flex items-start gap-1.5">
-                <span className="text-amber-500 mt-0.5">•</span>
-                <span>
-                  스티커 #{id}: {reason}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {!naturalCheckLoading && excludedCount === 0 && selectedIds.size > 0 && (
-        <div className="flex items-center justify-center gap-2 py-3 px-4 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700">
-          <CheckCircle size={16} />
-          모든 스티커의 텍스트가 자연스럽습니다 ✓
-        </div>
-      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-4">

@@ -81,7 +81,7 @@ function StrategyStage({
           AI 전문가 패널
         </div>
         <h2 className="text-3xl font-bold text-text">전략 분석</h2>
-        <p className="text-text-muted">AI가 생성한 스티커 세트 전략을 검토하세요.</p>
+        <p className="text-text-muted">AI가 생성한 이모지 세트 전략을 검토하세요.</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
