@@ -19,7 +19,12 @@ const LANG_META: Record<(typeof LANGUAGES)[number], { flag: string; native: stri
 
 function InputStage({ onSubmit, initialData }: InputStageProps) {
   const [data, setData] = useState<UserInput>(
-    initialData ?? { concept: '', referenceImage: null, language: 'Korean' },
+    initialData ?? {
+      concept: '',
+      referenceImage: null,
+      language: 'Korean',
+      skipCharacterGen: false,
+    },
   );
   const [preview, setPreview] = useState<string | null>(null);
   const conceptId = useId();
@@ -35,7 +40,11 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
       const result = reader.result as string;
       setPreview(result);
       const base64 = result.split(',')[1] ?? null;
-      setData((prev) => ({ ...prev, referenceImage: base64 }));
+      setData((prev) => ({
+        ...prev,
+        referenceImage: base64,
+        ...(!base64 && { skipCharacterGen: false }),
+      }));
     };
     reader.readAsDataURL(file);
   };
@@ -147,6 +156,39 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
               )}
             </div>
           </div>
+        </div>
+
+        <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <div className="space-y-0.5">
+            <p className="text-sm font-medium text-slate-700">참고 이미지를 베이스 캐릭터로 사용</p>
+            <p className="text-xs text-text-muted">
+              AI 캐릭터 생성을 건너뛰고, 업로드한 이미지를 바로 사용합니다
+            </p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={!!data.skipCharacterGen && !!data.referenceImage}
+            disabled={!data.referenceImage}
+            data-testid="skip-chargen-toggle"
+            onClick={() =>
+              setData((prev) => ({ ...prev, skipCharacterGen: !prev.skipCharacterGen }))
+            }
+            className={cn(
+              'relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2',
+              data.skipCharacterGen && data.referenceImage ? 'bg-primary' : 'bg-slate-200',
+              !data.referenceImage && 'opacity-50 cursor-not-allowed',
+            )}
+          >
+            <span
+              aria-hidden="true"
+              className={cn(
+                'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out',
+                data.skipCharacterGen && data.referenceImage ? 'translate-x-5' : 'translate-x-0',
+              )}
+            />
+          </button>
         </div>
 
         <div className="pt-3">

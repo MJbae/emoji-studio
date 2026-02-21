@@ -32,6 +32,7 @@ export interface UserInput {
   concept: string;
   referenceImage: string | null; // Base64
   language: 'Korean' | 'Japanese' | 'Traditional Chinese';
+  skipCharacterGen?: boolean;
 }
 
 export interface CharacterSpec {
