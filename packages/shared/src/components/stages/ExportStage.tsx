@@ -28,7 +28,7 @@ function ExportStage({
   return (
     <section data-stage="export" className="max-w-4xl mx-auto space-y-8">
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
           <FileDown size={14} />
           마지막 단계
         </div>
@@ -36,13 +36,13 @@ function ExportStage({
         <p className="text-text-muted">이모지 세트를 다운로드하세요.</p>
       </div>
 
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+      <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
         <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-          <FileDown size={16} className="text-[#06C755]" />
+          <FileDown size={16} className="text-primary" />
           대상 플랫폼
         </h3>
 
-        <div className="relative p-4 rounded-xl border-2 border-[#06C755] bg-[#06C755]/5">
+        <div className="relative p-4 rounded-xl border-2 border-primary bg-primary/5">
           <p className="font-bold text-slate-800 text-sm">LINE Emoji</p>
           <p className="text-xs text-text-muted mb-3">LINE emoji format</p>
 
@@ -67,8 +67,8 @@ function ExportStage({
         </div>
       </div>
 
-      <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-6">
-        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+      <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-6">
+        <div className="w-16 h-16 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center mx-auto">
           <Download size={32} />
         </div>
 

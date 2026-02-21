@@ -2,7 +2,7 @@ import type { PlatformId, PlatformSpec } from '@/types/domain';
 
 export const PLATFORM_SPECS: Record<PlatformId, PlatformSpec> = {
   ogq_sticker: {
-    label: 'OGQ Sticker',
+    label: 'OGQ 이모지',
     description: 'For OGQ Market',
     count: 24,
     content: { width: 740, height: 640 },
@@ -11,8 +11,8 @@ export const PLATFORM_SPECS: Record<PlatformId, PlatformSpec> = {
     fileNameFormat: (i: number) => `${String(i + 1).padStart(2, '0')}.png`,
   },
   line_sticker: {
-    label: 'LINE Sticker',
-    description: 'Standard Stickers',
+    label: 'LINE 이모지',
+    description: '기본 이모지',
     count: 40,
     content: { width: 370, height: 320 },
     main: { width: 240, height: 240 },

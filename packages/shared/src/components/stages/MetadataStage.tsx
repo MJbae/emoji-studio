@@ -53,9 +53,10 @@ function MetadataStage({
   return (
     <section data-stage="metadata" className="max-w-6xl mx-auto space-y-8">
       {!hasResults && (
-        <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-6">
-          <div className="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto">
-            <Sparkles size={32} />
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
+            <Sparkles size={14} />
+            6단계
           </div>
           <div>
             <h2 className="text-2xl font-bold text-text">AI 메타데이터 생성기</h2>
@@ -81,10 +82,10 @@ function MetadataStage({
                   data-testid={`meta-lang-${lang.code}`}
                   onClick={() => onLanguageToggle(lang.code)}
                   className={cn(
-                    'px-4 py-2 rounded-lg border flex items-center gap-2 transition-all text-sm',
+                    'px-4 py-2 rounded-xl border flex items-center gap-2 transition-all text-sm',
                     selectedLanguages.has(lang.code)
-                      ? 'border-purple-500 bg-purple-50 text-purple-700 font-medium'
-                      : 'border-slate-200 hover:border-purple-300 text-slate-600',
+                      ? 'border-primary bg-primary-50 text-primary-700 font-medium'
+                      : 'border-slate-200 hover:border-primary-300 text-slate-600',
                   )}
                 >
                   <span>{lang.flag}</span>
@@ -110,9 +111,9 @@ function MetadataStage({
 
       {hasResults && (
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center bg-white/90 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/60 sticky top-16 z-10 gap-3 shadow-sm transition-all">
+          <div className="flex flex-col sm:flex-row justify-between items-center bg-white/90 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/60 sticky top-16 z-10 gap-3 shadow-md transition-all">
             <h3 className="text-lg font-bold text-text flex items-center gap-2">
-              <Sparkles className="text-purple-600" size={18} />
+              <Sparkles className="text-primary" size={18} />
               생성 결과
             </h3>
             <div className="flex gap-2">
@@ -201,7 +202,7 @@ function MetaResultCard({
     scoreAvg >= 4.5 ? 'text-emerald-600' : scoreAvg >= 3.5 ? 'text-amber-600' : 'text-slate-500';
 
   const copyTags = () => {
-    navigator.clipboard.writeText(result.tags.join(', ')).catch(() => { });
+    navigator.clipboard.writeText(result.tags.join(', ')).catch(() => {});
     setCopiedTags(true);
     setTimeout(() => setCopiedTags(false), 2000);
   };
@@ -210,17 +211,17 @@ function MetaResultCard({
     <Card
       className={cn(
         'flex flex-col h-full hover:shadow-xs',
-        isSelected && 'ring-2 ring-purple-500 border-purple-500',
+        isSelected && 'ring-2 ring-primary border-primary',
       )}
       hoverable
     >
       <div
         className={cn(
           'px-5 py-3 border-b flex justify-between items-center',
-          isSelected ? 'bg-purple-50 border-purple-200' : 'bg-slate-50/50 border-slate-100',
+          isSelected ? 'bg-primary-50 border-primary-200' : 'bg-slate-50/50 border-slate-100',
         )}
       >
-        <span className="text-xs font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-2 py-0.5 rounded">
+        <span className="text-xs font-bold uppercase tracking-wider text-primary-700 bg-primary-100 px-2 py-0.5 rounded">
           {result.optionType}
         </span>
         <Button

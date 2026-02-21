@@ -2,8 +2,8 @@
   "name": "@emoji/electron",
   "private": true,
   "version": "0.1.0",
-  "description": "AI-powered emoticon pack creator with cross-platform desktop support",
-  "author": "Emoticon Studio",
+  "description": "AI-powered emoji pack creator with cross-platform desktop support",
+  "author": "LINE Emoji Studio",
   "type": "module",
   "main": "./out/main/index.js",
   "scripts": {

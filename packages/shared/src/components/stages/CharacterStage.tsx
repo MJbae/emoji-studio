@@ -115,7 +115,7 @@ function CharacterStage({
               className="w-full flex items-center justify-between"
             >
               <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
-                <Fingerprint size={16} className="text-violet-600" />
+                <Fingerprint size={16} className="text-primary-700" />
                 캐릭터 정보
               </h3>
               {specExpanded ? (

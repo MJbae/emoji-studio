@@ -9,7 +9,7 @@ const program = new Command();
 
 program
   .name('emoji-cli')
-  .description('AI-powered emoticon pack creator — CLI for macOS')
+  .description('AI-powered emoji pack creator — CLI for macOS')
   .version('0.1.0');
 
 // ---------------------------------------------------------------------------
@@ -18,10 +18,10 @@ program
 
 program
   .command('generate')
-  .description('Run the full emoticon generation pipeline')
-  .requiredOption('-c, --concept <text>', 'Emoticon concept description')
+  .description('Run the full emoji generation pipeline')
+  .requiredOption('-c, --concept <text>', 'Emoji concept description')
   .option('-l, --language <lang>', 'Target language (ko, ja, zh-TW)', 'ko')
-  .option('--no-text', 'Generate text-free emoticons')
+  .option('--no-text', 'Generate text-free emoji pack')
   .option('--reference-image <path>', 'Path to reference image')
   .option('--api-key <key>', 'Gemini API key (overrides config)')
   .option('--platforms <list>', 'Target platforms (comma-separated or "all")', 'all')
@@ -43,9 +43,7 @@ program
 // config command
 // ---------------------------------------------------------------------------
 
-const configCmd = program
-  .command('config')
-  .description('Manage CLI configuration');
+const configCmd = program.command('config').description('Manage CLI configuration');
 
 configCmd
   .command('set-key <key>')

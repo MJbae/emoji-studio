@@ -45,8 +45,8 @@ import { ExportStage } from '@/components/stages/ExportStage';
 
 const PLATFORM_SPECS: Record<PlatformId, PlatformSpec> = {
   ogq_sticker: {
-    label: 'OGQ Sticker',
-    description: 'Kakao OGQ sticker format',
+    label: 'OGQ 이모지',
+    description: 'Kakao OGQ 이모지 형식',
     count: 24,
     content: { width: 360, height: 360 },
     main: { width: 480, height: 480 },
@@ -54,8 +54,8 @@ const PLATFORM_SPECS: Record<PlatformId, PlatformSpec> = {
     fileNameFormat: (i: number) => `sticker_${String(i + 1).padStart(2, '0')}.png`,
   },
   line_sticker: {
-    label: 'LINE Sticker',
-    description: 'LINE sticker format',
+    label: 'LINE 이모지',
+    description: 'LINE 이모지 형식',
     count: 40,
     content: { width: 370, height: 320 },
     main: { width: 240, height: 240 },
@@ -64,7 +64,7 @@ const PLATFORM_SPECS: Record<PlatformId, PlatformSpec> = {
   },
   line_emoji: {
     label: 'LINE Emoji',
-    description: 'LINE emoji format',
+    description: 'LINE 이모지 형식',
     count: 40,
     content: { width: 180, height: 180 },
     main: null,
@@ -576,7 +576,7 @@ function App() {
       setExportProgress(80);
       const arrayBuffer = await blob.arrayBuffer();
       const data = new Uint8Array(arrayBuffer);
-      const fileName = `emoticon_${defaultPlatform}_${Date.now()}.zip`;
+      const fileName = `emoji_${defaultPlatform}_${Date.now()}.zip`;
       await platform.saveFile(data, fileName);
       setExportProgress(100);
     } catch (e) {

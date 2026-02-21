@@ -13,7 +13,7 @@ function FileUpload({
   onUpload,
   accept = 'image/*,.zip',
   maxFiles = 120,
-  label = '이모티콘 이미지 업로드',
+  label = '이모지 이미지 업로드',
 }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);

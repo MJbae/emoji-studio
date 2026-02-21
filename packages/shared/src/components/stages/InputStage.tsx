@@ -74,7 +74,11 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
 
         <fieldset className="space-y-1.5">
           <legend className="block text-sm font-medium text-slate-700 mb-2">타깃 시장</legend>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Target language">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3"
+            role="radiogroup"
+            aria-label="Target language"
+          >
             {LANGUAGES.map((lang) => {
               const meta = LANG_META[lang];
               const isSelected = data.language === lang;
@@ -89,7 +93,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                   data-testid={`lang-${lang.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setData((prev) => ({ ...prev, language: lang }))}
                   className={cn(
-                    'p-3 rounded-lg border text-sm font-medium transition-all flex flex-col items-center gap-1',
+                    'p-3 rounded-xl border text-sm font-medium transition-all flex flex-col items-center gap-1',
                     isSelected
                       ? 'bg-primary/5 border-primary text-primary-dark'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-600',

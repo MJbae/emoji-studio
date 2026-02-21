@@ -15,15 +15,15 @@ interface StrategyStageProps {
   onBack: () => void;
 }
 
-const PERSONA_COLORS: Record<string, { icon: string; bg: string }> = {
-  'Market Analyst': { icon: 'text-indigo-600', bg: 'bg-indigo-100' },
-  'Art Director': { icon: 'text-pink-600', bg: 'bg-pink-100' },
-  'Cultural Expert': { icon: 'text-teal-600', bg: 'bg-teal-100' },
-  'Creative Director': { icon: 'text-amber-600', bg: 'bg-amber-100' },
+const PERSONA_COLORS: Record<string, { bg: string; text: string }> = {
+  'Market Analyst': { bg: 'bg-emerald-100', text: 'text-emerald-700' },
+  'Art Director': { bg: 'bg-teal-100', text: 'text-teal-700' },
+  'Cultural Expert': { bg: 'bg-green-100', text: 'text-green-700' },
+  'Chief Creative Director': { bg: 'bg-lime-100', text: 'text-lime-700' },
 };
 
 function getPersonaColor(persona: string) {
-  return PERSONA_COLORS[persona] ?? { icon: 'text-slate-600', bg: 'bg-slate-100' };
+  return PERSONA_COLORS[persona] ?? { bg: 'bg-slate-100', text: 'text-slate-600' };
 }
 
 function StrategyStage({
@@ -89,8 +89,8 @@ function StrategyStage({
           {strategy.selectedTextStyle && (
             <CollapsibleStrategyCard
               title="텍스트 스타일"
-              icon={<Palette className="w-5 h-5 text-blue-600" />}
-              iconBg="bg-blue-100"
+              icon={<Palette className="w-5 h-5 text-primary-700" />}
+              iconBg="bg-primary-100"
               defaultExpanded={true}
               badge={strategy.selectedTextStyle.title}
             >
@@ -103,8 +103,8 @@ function StrategyStage({
           {strategy.culturalNotes && (
             <CollapsibleStrategyCard
               title="문화적 고려사항"
-              icon={<Globe className="w-5 h-5 text-emerald-600" />}
-              iconBg="bg-emerald-100"
+              icon={<Globe className="w-5 h-5 text-green-700" />}
+              iconBg="bg-green-100"
             >
               <p className="text-sm text-text-muted leading-relaxed break-words whitespace-normal">
                 {strategy.culturalNotes}
@@ -115,8 +115,8 @@ function StrategyStage({
           {strategy.salesReasoning && (
             <CollapsibleStrategyCard
               title="판매 전략"
-              icon={<TrendingUp className="w-5 h-5 text-amber-600" />}
-              iconBg="bg-amber-100"
+              icon={<TrendingUp className="w-5 h-5 text-lime-700" />}
+              iconBg="bg-lime-100"
             >
               <p className="text-sm text-text-muted leading-relaxed break-words whitespace-normal">
                 {strategy.salesReasoning}
@@ -148,7 +148,7 @@ function StrategyStage({
                       className="w-full p-4 flex items-start gap-3 text-left hover:bg-slate-50 transition-colors"
                     >
                       <div className={cn('p-2 rounded-lg shrink-0 mt-0.5', colors.bg)}>
-                        <Users className={cn('w-4 h-4', colors.icon)} />
+                        <Users className={cn('w-4 h-4', colors.text)} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
@@ -225,7 +225,7 @@ function CollapsibleStrategyCard({
           <div className="flex items-center justify-between gap-2">
             <h3 className="font-bold text-slate-900 text-sm">{title}</h3>
             {badge && (
-              <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap ml-auto mr-2">
+              <span className="bg-primary-100 text-primary-800 text-xs font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap ml-auto mr-2">
                 {badge}
               </span>
             )}
@@ -234,11 +234,11 @@ function CollapsibleStrategyCard({
             </div>
           </div>
           {!expanded && (
-            <p className="text-xs text-text-muted truncate mt-1">
-              클릭하여 상세 내용 확인
-            </p>
+            <p className="text-xs text-text-muted truncate mt-1">클릭하여 상세 내용 확인</p>
           )}
-          {expanded && <div className="mt-3 pt-3 border-t border-slate-100 animate-fade-in">{children}</div>}
+          {expanded && (
+            <div className="mt-3 pt-3 border-t border-slate-100 animate-fade-in">{children}</div>
+          )}
         </div>
       </button>
     </Card>

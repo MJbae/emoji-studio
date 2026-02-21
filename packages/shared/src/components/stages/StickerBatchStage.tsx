@@ -66,7 +66,7 @@ function StickerBatchStage({
       data-phase={isGenerating ? 'generating' : 'complete'}
       className="max-w-7xl mx-auto space-y-6"
     >
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 sticky top-16 z-30 gap-4 shadow-sm transition-all">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 sticky top-16 z-30 gap-4 shadow-md transition-all">
         <div className="space-y-1">
           <h2 className="text-lg font-bold text-text">이모지 세트 생성 중</h2>
           <div role="status" aria-live="polite" className="text-sm text-text-muted">
@@ -81,8 +81,8 @@ function StickerBatchStage({
             <progress
               value={doneCount}
               max={totalCount}
-              aria-valuetext={`${doneCount} of ${totalCount} stickers generated`}
-              aria-label="Sticker generation progress"
+              aria-valuetext={`${doneCount} of ${totalCount} emoji generated`}
+              aria-label="Emoji generation progress"
               className="w-full h-2 [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-slate-200 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary [&::-webkit-progress-value]:transition-all [&::-moz-progress-bar]:bg-primary [&::-moz-progress-bar]:rounded-full"
             />
             <p className="text-xs text-text-muted mt-1 text-right">{progressPct}%</p>
@@ -102,15 +102,15 @@ function StickerBatchStage({
       <div
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
         role="list"
-        aria-label="Sticker grid"
+        aria-label="Emoji grid"
       >
         {stickers.map((sticker) => (
           <React.Fragment key={sticker.id}>
             <Card className="p-3 flex flex-col items-center min-h-[200px]">
               <div
-                className="w-full aspect-square bg-slate-50 rounded-lg mb-2 flex items-center justify-center overflow-hidden border border-slate-100 relative group"
+                className="w-full aspect-square bg-slate-50 rounded-xl mb-2 flex items-center justify-center overflow-hidden border border-slate-100 relative group"
                 role="listitem"
-                aria-label={`Sticker ${sticker.id}: ${sticker.idea.expression}`}
+                aria-label={`Emoji ${sticker.id}: ${sticker.idea.expression}`}
                 data-job-status={sticker.status}
               >
                 {sticker.status === 'done' && sticker.imageUrl ? (
@@ -123,7 +123,7 @@ function StickerBatchStage({
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                       <button
                         onClick={() => onRegenerate(sticker.id)}
-                        aria-label={`Regenerate sticker ${sticker.id}`}
+                        aria-label={`Regenerate emoji ${sticker.id}`}
                         data-testid={`regen-${sticker.id}`}
                         className="p-2 bg-white rounded-full hover:bg-slate-100 text-primary"
                       >
@@ -131,7 +131,7 @@ function StickerBatchStage({
                       </button>
                       <button
                         onClick={() => startEdit(sticker)}
-                        aria-label={`Edit sticker ${sticker.id} prompt`}
+                        aria-label={`Edit emoji ${sticker.id} prompt`}
                         data-testid={`edit-${sticker.id}`}
                         className="p-2 bg-white rounded-full hover:bg-slate-100 text-slate-600"
                       >
@@ -146,7 +146,7 @@ function StickerBatchStage({
                     <AlertCircle className="w-7 h-7 text-danger mx-auto" />
                     <button
                       onClick={() => onRegenerate(sticker.id)}
-                      aria-label={`Retry sticker ${sticker.id}`}
+                      aria-label={`Retry emoji ${sticker.id}`}
                       data-testid={`retry-${sticker.id}`}
                       className="text-xs text-primary font-semibold underline"
                     >

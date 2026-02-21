@@ -64,7 +64,7 @@ function PostProcessStage({
                 aria-label="White background"
                 onClick={() => setPreviewBg('white')}
                 className={cn(
-                  'w-7 h-7 rounded-md border-2 transition-all',
+                  'w-7 h-7 rounded-lg border-2 transition-all',
                   previewBg === 'white'
                     ? 'border-primary ring-2 ring-primary/30 bg-white'
                     : 'border-slate-300 bg-white hover:border-slate-400',
@@ -76,7 +76,7 @@ function PostProcessStage({
                 aria-label="Black background"
                 onClick={() => setPreviewBg('black')}
                 className={cn(
-                  'w-7 h-7 rounded-md border-2 transition-all',
+                  'w-7 h-7 rounded-lg border-2 transition-all',
                   previewBg === 'black'
                     ? 'border-primary ring-2 ring-primary/30 bg-black'
                     : 'border-slate-300 bg-black hover:border-slate-400',

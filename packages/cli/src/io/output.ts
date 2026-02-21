@@ -1,5 +1,11 @@
 import chalk from 'chalk';
-import type { OutputEvent, ProgressEvent, ConfirmEvent, ResultEvent, ErrorEvent } from '../types/cli.js';
+import type {
+  OutputEvent,
+  ProgressEvent,
+  ConfirmEvent,
+  ResultEvent,
+  ErrorEvent,
+} from '../types/cli.js';
 
 let jsonMode = false;
 
@@ -30,7 +36,7 @@ const STAGE_LABELS: Record<string, string> = {
   'character-generation': 'Character',
   'style-selection': 'Style Selection',
   'emote-ideation': 'Emote Ideation',
-  'sticker-generation': 'Sticker Generation',
+  'sticker-generation': 'Emoji Generation',
   'post-processing': 'Post Processing',
   'metadata-generation': 'Metadata',
   export: 'Export',
@@ -88,7 +94,7 @@ export function printResult(event: ResultEvent): void {
   console.log(chalk.green.bold('  Done!'));
   console.log(`  ${chalk.dim('Session:')} ${event.session_id}`);
   console.log(`  ${chalk.dim('Output:')}  ${event.output_dir}`);
-  console.log(`  ${chalk.dim('Stickers:')} ${event.sticker_count}`);
+  console.log(`  ${chalk.dim('Emoji:')} ${event.sticker_count}`);
   console.log(`  ${chalk.dim('Time:')}    ${event.elapsed_time}`);
 
   for (const [platform, path] of Object.entries(event.exports)) {

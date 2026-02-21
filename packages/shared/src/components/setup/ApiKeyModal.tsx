@@ -91,7 +91,7 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
                 aria-label="Gemini API key"
                 data-testid="api-key-input"
                 className={cn(
-                  'w-full px-4 py-2.5 pr-10 rounded-lg border text-sm transition-colors',
+                  'w-full px-4 py-2.5 pr-10 rounded-xl border text-sm transition-colors',
                   'focus:outline-none focus:ring-3 focus:ring-primary/20 focus:border-primary',
                   error ? 'border-danger' : 'border-slate-300',
                 )}

@@ -103,7 +103,7 @@ function ProcessingOptions({ options, onChange }: ProcessingOptionsProps) {
                     data-testid={`outline-style-${s.value}`}
                     onClick={() => update('outlineStyle', s.value)}
                     className={cn(
-                      'py-2 px-3 rounded-lg text-sm border flex items-center justify-center gap-2',
+                      'py-2 px-3 rounded-xl text-sm border flex items-center justify-center gap-2',
                       options.outlineStyle === s.value
                         ? 'border-primary bg-primary/5 text-primary-dark font-medium'
                         : 'border-slate-200 hover:bg-slate-50 text-slate-600',
