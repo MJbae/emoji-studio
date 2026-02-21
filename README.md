@@ -80,70 +80,16 @@ npm run dev:cli -- generate -c "귀여운 고양이" --auto
 
 ### 스크립트
 
-<<<<<<< HEAD
-
-### Gemini API Key 발급
-
-1. [Google AI Studio](https://aistudio.google.com/apikey)에 접속
-2. **Create API Key** 클릭
-3. 발급된 키(`AIza...`)를 앱의 모달에 붙여넣기
-4. **Save & Continue** 클릭
-
-> 키는 로컬에만 저장됩니다 (웹: localStorage, 데스크톱: OS 키체인). 서버로 전송되지 않습니다.
-
----
-
-## 워크플로우
-
-Emoticon Studio는 **7단계 파이프라인**으로 동작합니다.
-
-```
-1. 입력 → 2. AI 전략 → 3. 캐릭터 생성 → 4. 스티커 일괄 생성
-                                                   ↓
-          7. 내보내기 ← 6. 메타데이터 ← 5. 후처리
-```
-
-| 단계               | 설명                                                                                    |
-| ------------------ | --------------------------------------------------------------------------------------- |
-| **1. 입력**        | 캐릭터 컨셉 텍스트 입력, 참조 이미지 첨부(선택), 타깃 언어 선택                         |
-| **2. AI 전략**     | 4명의 AI 전문가(시장 분석가, 아트 디렉터, 문화 전문가, 크리에이티브 디렉터)가 순차 분석 |
-| **3. 캐릭터 생성** | AI가 베이스 캐릭터를 생성하고 스타일 변환. 마음에 들지 않으면 재생성 가능               |
-| **4. 스티커 생성** | 45개 이모트 아이디어 자동 생성 후 3개씩 병렬로 이미지 생성 (약 15~25분)                 |
-| **5. 후처리**      | 배경 제거(Sobel 에지 검출 + 플러드 필), 아웃라인 추가(두께/불투명도 조절)               |
-| **6. 메타데이터**  | 플랫폼 등록용 제목/설명/태그를 3가지 옵션으로 자동 생성 (다국어 지원)                   |
-| **7. 내보내기**    | LINE Emoji에 맞춰 ZIP 다운로드                                                          |
-
-### 후처리 전용 모드
-
-이미 만들어둔 이모티콘이 있다면 생성 과정을 건너뛸 수 있습니다.
-
-1. 기존 이미지(PNG/JPG) 또는 ZIP 업로드 (최대 120장)
-2. 배경 제거, 아웃라인 적용
-3. 메타데이터 생성 → 내보내기
-
----
-
-## 지원 플랫폼
-
-| 플랫폼       | 스티커 크기 | 포함 파일                   |
-| ------------ | ----------- | --------------------------- |
-| OGQ Sticker  | 740 x 640   | tab.png + main.png + 스티커 |
-| LINE Sticker | 370 x 320   | tab.png + main.png + 스티커 |
-| LINE Emoji   | 180 x 180   | tab.png + 스티커            |
-
-=======
-| 명령어 | 설명 |
+| 명령어                      | 설명                                 |
 | --------------------------- | ------------------------------------ |
-| `npm run dev:web` | 웹 개발 서버 (http://localhost:5173) |
-| `npm run dev:electron` | Electron 개발 모드 |
-| `npm run dev:cli -- <args>` | CLI 개발 모드 |
-| `npm run build:web` | 웹 프로덕션 빌드 |
-| `npm run build:electron` | Electron 프로덕션 빌드 |
-| `npm run build:cli` | CLI 프로덕션 빌드 |
-| `npm run test` | 전체 테스트 |
-| `npm run lint` | ESLint 검사 |
-
-> > > > > > > 999840e (docs: rewrite README with Vercel domain and user-centric guide)
+| `npm run dev:web`           | 웹 개발 서버 (http://localhost:5173) |
+| `npm run dev:electron`      | Electron 개발 모드                   |
+| `npm run dev:cli -- <args>` | CLI 개발 모드                        |
+| `npm run build:web`         | 웹 프로덕션 빌드                     |
+| `npm run build:electron`    | Electron 프로덕션 빌드               |
+| `npm run build:cli`         | CLI 프로덕션 빌드                    |
+| `npm run test`              | 전체 테스트                          |
+| `npm run lint`              | ESLint 검사                          |
 
 ---
 
