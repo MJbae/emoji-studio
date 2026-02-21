@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, RefreshCw, Copy, Check, Hash } from 'lucide-react';
+import { Sparkles, RefreshCw, Copy, Check, Hash, Download } from 'lucide-react';
 import type { MetaResult, LanguageCode, LanguageEntry } from '@/types/domain';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -16,7 +16,9 @@ interface MetadataStageProps {
   onSelect: (result: MetaResult) => void;
   selectedMetaMap: Map<LanguageCode, MetaResult>;
   onRegenerate: () => void;
-  onContinue: () => void;
+  onExport: () => void;
+  isExporting: boolean;
+  exportProgress: number;
   onBack: () => void;
 }
 
@@ -30,7 +32,9 @@ function MetadataStage({
   onSelect,
   selectedMetaMap,
   onRegenerate,
-  onContinue,
+  onExport,
+  isExporting,
+  exportProgress,
   onBack,
 }: MetadataStageProps) {
   const hasResults = results.length > 0;
@@ -128,15 +132,32 @@ function MetadataStage({
                 재생성
               </Button>
               <Button
-                onClick={onContinue}
+                onClick={onExport}
                 size="sm"
-                aria-label="Proceed to export"
-                data-testid="continue-btn"
+                disabled={isExporting}
+                icon={<Download size={14} />}
+                aria-label="Export emoji ZIP"
+                data-testid="export-btn"
               >
-                내보내기로 이동
+                ZIP 내보내기
               </Button>
             </div>
           </div>
+
+          {isExporting && (
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+              <div className="flex items-center gap-3">
+                <Download className="text-primary animate-bounce" size={20} />
+                <span className="text-sm font-medium text-text">내보내기 중…</span>
+              </div>
+              <progress
+                value={exportProgress}
+                max={100}
+                className="w-full h-3 [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-slate-200 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary [&::-webkit-progress-value]:transition-all [&::-moz-progress-bar]:bg-primary [&::-moz-progress-bar]:rounded-full"
+              />
+              <p className="text-xs text-text-muted text-right">{exportProgress}%</p>
+            </div>
+          )}
 
           {Object.entries(resultsByLang).map(([code, options]) => {
             const langInfo = languages.find((l) => l.code === code);

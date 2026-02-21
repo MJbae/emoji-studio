@@ -21,14 +21,12 @@ const FULL_STEPS: StepDef[] = [
   { id: 'character', label: '캐릭터', shortLabel: '캐릭터' },
   { id: 'stickers', label: '이모지', shortLabel: '이모지' },
   { id: 'postprocess', label: '후처리', shortLabel: '후처리' },
-  { id: 'metadata', label: '메타데이터', shortLabel: '메타' },
-  { id: 'export', label: '내보내기', shortLabel: '내보내기' },
+  { id: 'metadata', label: '메타 · 내보내기', shortLabel: '내보내기' },
 ];
 
 const POSTPROCESS_STEPS: StepDef[] = [
   { id: 'postprocess', label: '후처리', shortLabel: '후처리' },
-  { id: 'metadata', label: '메타데이터', shortLabel: '메타' },
-  { id: 'export', label: '내보내기', shortLabel: '내보내기' },
+  { id: 'metadata', label: '메타 · 내보내기', shortLabel: '내보내기' },
 ];
 
 function StageStepper({ currentStage, mode, completedStages, onStageClick }: StageStepperProps) {

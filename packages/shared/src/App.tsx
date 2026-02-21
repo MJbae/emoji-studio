@@ -5,8 +5,6 @@ import type { WorkflowStage } from '@/store/slices/workflowSlice';
 import type {
   UserInput,
   ProcessingOptions as ProcessingOptionsType,
-  PlatformId,
-  PlatformSpec,
   LanguageCode,
   LanguageEntry,
   Sticker,
@@ -40,37 +38,6 @@ import { CharacterStage } from '@/components/stages/CharacterStage';
 import { StickerBatchStage } from '@/components/stages/StickerBatchStage';
 import { PostProcessStage } from '@/components/stages/PostProcessStage';
 import { MetadataStage } from '@/components/stages/MetadataStage';
-import { ExportStage } from '@/components/stages/ExportStage';
-
-const PLATFORM_SPECS: Record<PlatformId, PlatformSpec> = {
-  ogq_sticker: {
-    label: 'OGQ 이모지',
-    description: 'Kakao OGQ 이모지 형식',
-    count: 24,
-    content: { width: 360, height: 360 },
-    main: { width: 480, height: 480 },
-    tab: { width: 120, height: 120 },
-    fileNameFormat: (i: number) => `sticker_${String(i + 1).padStart(2, '0')}.png`,
-  },
-  line_sticker: {
-    label: 'LINE 이모지',
-    description: 'LINE 이모지 형식',
-    count: 40,
-    content: { width: 370, height: 320 },
-    main: { width: 240, height: 240 },
-    tab: { width: 96, height: 74 },
-    fileNameFormat: (i: number) => `${String(i + 1).padStart(2, '0')}.png`,
-  },
-  line_emoji: {
-    label: 'LINE Emoji',
-    description: 'LINE 이모지 형식',
-    count: 40,
-    content: { width: 180, height: 180 },
-    main: null,
-    tab: { width: 96, height: 74 },
-    fileNameFormat: (i: number) => `${String(i + 1).padStart(3, '0')}.png`,
-  },
-};
 
 const LANGUAGES: LanguageEntry[] = [
   { code: 'en', label: 'English', flag: '🇺🇸', required: true, nativeName: 'English' },
@@ -117,7 +84,6 @@ function App() {
   const setUserInput = useAppStore((s) => s.setUserInput);
   const metadata = useAppStore((s) => s.metadata);
   const defaultPlatform = useAppStore((s) => s.defaultPlatform);
-  const setDefaultPlatform = useAppStore((s) => s.setDefaultPlatform);
 
   const [showApiModal, setShowApiModal] = useState(false);
   const [completedStages, setCompletedStages] = useState<Set<WorkflowStage>>(new Set());
@@ -228,15 +194,26 @@ function App() {
       setCharacterLoading(true);
       setCharacterError(null);
       try {
-        const baseImage = await generateBaseCharacter(userInput);
-        const styledImage = await generateVisualVariation(
-          baseImage,
-          currentStrategy.selectedVisualStyleIndex,
-          userInput.language,
-        );
-        useAppStore.getState().setMainImage(styledImage);
-        const spec = await extractCharacterSpec(styledImage, userInput.concept);
-        useAppStore.getState().setCharacterSpec(spec);
+        if (userInput.skipCharacterGen && userInput.referenceImage) {
+          // Skip generation — use reference image directly
+          useAppStore.getState().setMainImage(userInput.referenceImage);
+          const spec = await extractCharacterSpec(userInput.referenceImage, userInput.concept);
+          useAppStore.getState().setCharacterSpec(spec);
+          // Auto-advance past character stage
+          markCompleted('character');
+          nextStage();
+        } else {
+          // Normal flow — generate base character + style variation
+          const baseImage = await generateBaseCharacter(userInput);
+          const styledImage = await generateVisualVariation(
+            baseImage,
+            currentStrategy.selectedVisualStyleIndex,
+            userInput.language,
+          );
+          useAppStore.getState().setMainImage(styledImage);
+          const spec = await extractCharacterSpec(styledImage, userInput.concept);
+          useAppStore.getState().setCharacterSpec(spec);
+        }
       } catch (e) {
         setCharacterError(e instanceof Error ? e.message : '캐릭터 생성에 실패했습니다');
       } finally {
@@ -245,7 +222,7 @@ function App() {
     }
 
     runCharacterGeneration();
-  }, [stage, mainImage, characterLoading, characterError]);
+  }, [stage, mainImage, characterLoading, characterError, markCompleted, nextStage]);
 
   const regenerateCharacter = useCallback(() => {
     setCharacterError(null);
@@ -636,23 +613,9 @@ function App() {
             onSelect={handleMetaSelect}
             selectedMetaMap={selectedMetaMap}
             onRegenerate={regenerateMetadata}
-            onContinue={() => {
-              markCompleted('metadata');
-              nextStage();
-            }}
-            onBack={prevStage}
-          />
-        );
-      case 'export':
-        return (
-          <ExportStage
-            platforms={PLATFORM_SPECS}
-            selectedPlatform={defaultPlatform}
-            onPlatformChange={setDefaultPlatform}
-            stickerCount={stickers.filter((s) => s.status === 'done').length}
+            onExport={runExport}
             isExporting={exporting}
             exportProgress={exportProgress}
-            onExport={runExport}
             onBack={prevStage}
           />
         );
