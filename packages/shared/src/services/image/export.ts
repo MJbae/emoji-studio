@@ -15,7 +15,7 @@ export async function generateStickerZip(
   mainImageBase64: string,
   metadata?: MetaResult[],
 ): Promise<Blob> {
-  const platform = PLATFORM_SPECS[platformId];
+  const platform = PLATFORM_SPECS[platformId] ?? PLATFORM_SPECS.line_sticker;
   const zip = new JSZip();
 
   const validStickers = stickers.filter((s) => s.status === 'done' && s.imageUrl);
@@ -60,7 +60,7 @@ export async function generatePostProcessedZip(
   platformId: PlatformId,
   metadata?: MetaResult[],
 ): Promise<Blob> {
-  const platform: PlatformSpec = PLATFORM_SPECS[platformId];
+  const platform: PlatformSpec = PLATFORM_SPECS[platformId] ?? PLATFORM_SPECS.line_sticker;
   const zip = new JSZip();
 
   for (let i = 0; i < images.length; i++) {

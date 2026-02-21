@@ -17,9 +17,17 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'emoticon-studio-config',
+      version: 1,
       partialize: (state) => ({
         language: state.language,
       }),
+      migrate: (persistedState) => {
+        const state = persistedState as Record<string, unknown>;
+        if (state.defaultPlatform !== 'line_sticker') {
+          state.defaultPlatform = 'line_sticker';
+        }
+        return persistedState as AppState;
+      },
     },
   ),
 );
