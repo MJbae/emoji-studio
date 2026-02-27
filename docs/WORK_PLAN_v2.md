@@ -18,12 +18,12 @@ v1 작업계획서를 코드 레벨에서 검증한 결과, **6가지 구조적 
 ### 문제 1: Gemini 모델 다운그레이드 (치명적)
 
 **v1 제안**: gemini-2.5-flash-preview-image-generation 사용  
-**현재 코드**: gemini-3-flash-preview, gemini-3-pro-preview 사용
+**현재 코드**: gemini-3-flash-preview, gemini-3.1-pro-preview 사용
 
 ```typescript
 // 현재 emoji_master (packages/shared/src/constants/gemini.ts)
 export const GEMINI_MODELS = {
-  TEXT_PRIMARY: "gemini-3-pro-preview", // Gemini 3
+  TEXT_PRIMARY: "gemini-3.1-pro-preview", // Gemini 3
   IMAGE_PRIMARY: "gemini-3-pro-image-preview", // Gemini 3
   FLASH_PRIMARY: "gemini-3-flash-preview", // Gemini 3
   // ...
@@ -192,7 +192,7 @@ v1 Phase 1: Agent 1(타입 수정) + Agent 2(오케스트레이터 수정)
 ```typescript
 // 변경 없음 — 이미 최신 Gemini 3 사용 중
 export const GEMINI_MODELS = {
-  TEXT_PRIMARY: "gemini-3-pro-preview",
+  TEXT_PRIMARY: "gemini-3.1-pro-preview",
   TEXT_FALLBACK: "gemini-2.5-flash",
   IMAGE_PRIMARY: "gemini-3-pro-image-preview",
   IMAGE_FALLBACK: "gemini-2.5-flash-image",

@@ -517,7 +517,7 @@ emoji-cli generate --concept "귀여운 고양이" --json
 
 3. **모델 설정**
    ```
-   TEXT_PRIMARY: gemini-3-pro-preview
+   TEXT_PRIMARY: gemini-3.1-pro-preview
    TEXT_FALLBACK: gemini-2.5-flash
    IMAGE_PRIMARY: gemini-3-pro-image-preview
    IMAGE_FALLBACK: gemini-2.5-flash-image

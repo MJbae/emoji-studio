@@ -53,7 +53,7 @@
 |------|-----|
 | **기술 스택** | React 19 + Vite 6 + TypeScript 5.8 + Tailwind v4 (PostCSS) |
 | **핵심 기능** | AI 전문가 패널 컨설팅 → 캐릭터 생성 → 45개 스티커 일괄 생성 |
-| **AI 모델** | gemini-3-pro-preview (텍스트), gemini-3-pro-image-preview (이미지) |
+| **AI 모델** | gemini-3.1-pro-preview (텍스트), gemini-3-pro-image-preview (이미지) |
 | **상태 관리** | React local state (App.tsx에서 prop drilling) |
 | **테스트** | 없음 |
 
@@ -605,7 +605,7 @@ npm install -D @playwright/test
 **테스트** (각 서비스별):
 ```
 tests/unit/services/gemini/client.test.ts
-  ├── gemini-3-pro-preview 정상 응답 처리
+  ├── gemini-3.1-pro-preview 정상 응답 처리
   ├── 모델 폴백 (pro → flash)
   ├── 양쪽 모델 실패 시 에러 전파
   ├── JSON 응답 파싱 (정상/비정상)

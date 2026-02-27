@@ -112,7 +112,7 @@ line-emoji-master/
 | 영역        | 기술                                                             |
 | ----------- | ---------------------------------------------------------------- |
 | UI          | React 19, TypeScript 5.8, Tailwind CSS 4                         |
-| AI          | Google Gemini (`gemini-2.5-flash-image`, `gemini-3-pro-preview`) |
+| AI          | Google Gemini (`gemini-2.5-flash-image`, `gemini-3.1-pro-preview`) |
 | 상태관리    | Zustand 5                                                        |
 | 빌드        | Vite 6, electron-vite 5                                          |
 | 이미지 처리 | Canvas API (웹), Sharp (CLI)                                     |

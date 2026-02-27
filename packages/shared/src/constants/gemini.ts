@@ -1,5 +1,5 @@
 export const GEMINI_MODELS = {
-  TEXT_PRIMARY: 'gemini-3-pro-preview',
+  TEXT_PRIMARY: 'gemini-3.1-pro-preview',
   TEXT_FALLBACK: 'gemini-2.5-flash',
   IMAGE_PRIMARY: 'gemini-2.5-flash-image',
   IMAGE_FALLBACK: 'gemini-2.5-flash-image',

@@ -24,7 +24,7 @@
 | ----------- | ------------------------------------------------- | ---------------------------------------------------------- |
 | 플랫폼      | OGQ / LINE Sticker / LINE Emoji                   | **LINE Emoji 전용**                                        |
 | 텍스트      | 텍스트 오버레이 지원 (noText 옵션)                | **텍스트 완전 제거**                                       |
-| AI 모델     | gemini-3-pro-preview / gemini-3-pro-image-preview | **gemini-2.5-flash-preview-image-generation (최신 Flash)** |
+| AI 모델     | gemini-3.1-pro-preview / gemini-3-pro-image-preview | **gemini-2.5-flash-preview-image-generation (최신 Flash)** |
 | 이미지 크기 | 740x640 / 370x320 / 180x180                       | **180x180 전용**                                           |
 | 생성 수     | 45개 생성 → 플랫폼별 선택                         | **45개 생성 → 40개 선택 (LINE Emoji 규격)**                |
 | 언어 선택   | Korean / Japanese / Traditional Chinese           | **프롬프트 전용 (출력 텍스트 없음)**                       |
@@ -98,7 +98,7 @@
 ```typescript
 // emoji_master 현재 설정
 GEMINI_MODELS = {
-  TEXT_PRIMARY: "gemini-3-pro-preview",
+  TEXT_PRIMARY: "gemini-3.1-pro-preview",
   IMAGE_PRIMARY: "gemini-3-pro-image-preview",
   FLASH_PRIMARY: "gemini-3-flash-preview",
   // fallbacks...
