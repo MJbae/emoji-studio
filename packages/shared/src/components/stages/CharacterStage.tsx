@@ -151,10 +151,10 @@ function CharacterStage({
           onClick={onContinue}
           disabled={!characterImage}
           size="lg"
-          aria-label="Continue to sticker generation"
+          aria-label="Continue to emoji generation"
           data-testid="continue-btn"
         >
-          스티커 생성으로 →
+          이모지 생성으로 →
         </Button>
       </div>
     </section>

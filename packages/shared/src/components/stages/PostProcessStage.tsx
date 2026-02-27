@@ -35,7 +35,7 @@ function PostProcessStage({
           <Wand2 size={14} />
           후처리
         </div>
-        <h2 className="text-3xl font-bold text-text">스티커 보정하기</h2>
+        <h2 className="text-3xl font-bold text-text">이모지 보정하기</h2>
         <p className="text-text-muted">
           처리 옵션을 조정하세요. 다음 단계로 진행하면 자동 적용됩니다.
         </p>

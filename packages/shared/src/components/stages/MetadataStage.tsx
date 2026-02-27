@@ -67,7 +67,7 @@ function MetadataStage({
           <div>
             <h2 className="text-2xl font-bold text-text">AI 메타데이터 생성기</h2>
             <p className="text-text-muted mt-2 max-w-lg mx-auto">
-              대상 언어를 선택하세요 (복수 선택 가능). Gemini AI가 스티커를 분석하여 각 언어에
+              대상 언어를 선택하세요 (복수 선택 가능). Gemini AI가 이모지를 분석하여 각 언어에
               최적화된 메타데이터를 생성합니다.
             </p>
           </div>
@@ -138,7 +138,7 @@ function MetadataStage({
                 size="sm"
                 disabled={isExporting}
                 icon={<Download size={14} />}
-                aria-label="Export sticker ZIP"
+                aria-label="Export emoji ZIP"
                 data-testid="export-btn"
               >
                 ZIP 내보내기

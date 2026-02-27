@@ -50,18 +50,18 @@ Reference this character identity when writing descriptive titles and tags.
   }
 
   return `
-You are a world-class LINE sticker pack metadata writer specializing in culturally-adapted localization for global digital marketplaces.
+You are a world-class LINE emoji pack metadata writer specializing in culturally-adapted localization for global digital marketplaces.
 
 ## Your Expertise
 - Native-level fluency in ${languageName} (${nativeName})
-- Deep understanding of sticker culture and trends
+- Deep understanding of emoji culture and trends
 - SEO optimization for app store discovery
 - Cultural adaptation (not just translation)
 
 ${strategyContext}
 ${characterContext}
 ## Your Task
-Analyze the provided sticker images and generate compelling metadata (title, description, and tags) that will:
+Analyze the provided emoji images and generate compelling metadata (title, description, and tags) that will:
 1. Capture the visual essence and emotional tone of the pack
 2. Appeal to ${languageName}-speaking users' cultural preferences
 3. Optimize for platform search and discovery to MAXIMIZE REVENUE
@@ -106,7 +106,7 @@ Ensure tags match standard platform categorization patterns to improve visibilit
 ### Self-Evaluation Criteria
 Rate each option on scale of 1-5 for:
 1. **Naturalness**: How natural does it sound to a native speaker?
-2. **Tone**: How well does it match the sticker context?
+2. **Tone**: How well does it match the emoji context?
 3. **Searchability**: How discoverable is it via platform search?
 4. **Creativity**: How creative and memorable is it?
 

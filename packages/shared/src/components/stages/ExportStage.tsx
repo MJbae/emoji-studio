@@ -32,8 +32,8 @@ function ExportStage({
           <FileDown size={14} />
           마지막 단계
         </div>
-        <h2 className="text-3xl font-bold text-text">스티커 팩 내보내기</h2>
-        <p className="text-text-muted">스티커 세트를 다운로드하세요.</p>
+        <h2 className="text-3xl font-bold text-text">이모지 팩 내보내기</h2>
+        <p className="text-text-muted">이모지 세트를 다운로드하세요.</p>
       </div>
 
       <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
@@ -43,17 +43,17 @@ function ExportStage({
         </h3>
 
         <div className="relative p-4 rounded-xl border-2 border-primary bg-primary/5">
-          <p className="font-bold text-slate-800 text-sm">LINE Sticker</p>
-          <p className="text-xs text-text-muted mb-3">LINE Sticker format</p>
+          <p className="font-bold text-slate-800 text-sm">LINE Emoji</p>
+          <p className="text-xs text-text-muted mb-3">LINE emoji format</p>
 
           <div className="space-y-1 text-[10px] text-slate-600 bg-slate-50 p-2 rounded border border-slate-100">
             <div className="flex justify-between">
               <span>콘텐츠</span>
-              <span className="font-mono">370×320</span>
+              <span className="font-mono">180×180</span>
             </div>
             <div className="flex justify-between">
               <span>메인</span>
-              <span className="font-mono">240×240</span>
+              <span className="font-mono">없음</span>
             </div>
             <div className="flex justify-between">
               <span>탭</span>
@@ -75,7 +75,7 @@ function ExportStage({
         <div>
           <h3 className="text-xl font-bold text-text">내보내기 준비 완료</h3>
           <p className="text-text-muted text-sm mt-1">
-            {stickerCount}개 스티커가 LINE Sticker 형식으로 준비됨
+            {stickerCount}개 이모지가 LINE Emoji 형식으로 준비됨
           </p>
         </div>
 
@@ -116,10 +116,10 @@ function ExportStage({
             icon={<Download size={18} />}
             size="lg"
             className="w-full max-w-md mx-auto"
-            aria-label="Download LINE Sticker ZIP"
+            aria-label="Download LINE Emoji ZIP"
             data-testid="download-btn"
           >
-            LINE Sticker ZIP 다운로드
+            LINE Emoji ZIP 다운로드
           </Button>
         )}
       </div>

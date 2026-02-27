@@ -508,7 +508,7 @@ function App() {
       setExportProgress(80);
       const arrayBuffer = await blob.arrayBuffer();
       const data = new Uint8Array(arrayBuffer);
-      const fileName = `${defaultPlatform}_${Math.floor(Math.random() * 900000 + 100000)}.zip`;
+      const fileName = `line_emoji_${Math.floor(Math.random() * 900000 + 100000)}.zip`;
       await platform.saveFile(data, fileName);
       setExportProgress(100);
     } catch (e) {

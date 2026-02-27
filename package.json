@@ -2,7 +2,7 @@
   "name": "line-emoji-studio",
   "private": true,
   "version": "0.1.0",
-  "description": "AI-powered LINE Sticker studio",
+  "description": "AI-powered LINE Emoji studio",
   "type": "module",
   "workspaces": [
     "packages/*"

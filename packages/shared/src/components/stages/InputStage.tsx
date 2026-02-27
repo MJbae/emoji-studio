@@ -56,7 +56,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
           <Sparkles size={14} />
           1단계
         </div>
-        <h2 className="text-3xl font-bold text-text">스티커 세트 시작하기</h2>
+        <h2 className="text-3xl font-bold text-text">이모지 세트 시작하기</h2>
         <p className="text-text-muted">캐릭터 컨셉을 설명하면 AI가 자동으로 생성합니다.</p>
       </div>
 

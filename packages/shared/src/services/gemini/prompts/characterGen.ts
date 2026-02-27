@@ -9,7 +9,7 @@ export function buildBaseCharacterPrompt(
   const culturalContext = getCulturalContext(language);
 
   return `
-Create a character design for LINE messenger sticker (370x320px canvas).
+Create a character design for LINE messenger emoji (180x180px display size).
 Character concept: ${concept}
 ${hasReferenceImage ? 'Reference image provided. Use it as the primary visual reference for the character design.' : ''}
 
@@ -20,9 +20,9 @@ CRITICAL REQUIREMENTS:
 2. Face/upper body focus, Large head-to-body ratio.
 3. THICK, BOLD outlines. High contrast colors.
 4. SOLID WHITE BACKGROUND. Do not use transparency.
-5. Cute but expressive. Optimized for LINE sticker sales at 370x320px.
-6. Design for chat readability: exaggerated proportions, minimal detail, maximum expression clarity.
-7. Include short, high-contrast text when it strengthens emotion delivery.
+5. Cute but expressive. Optimized for LINE emoji sales at 180x180px.
+6. Design for TINY display: exaggerated proportions, minimal detail, maximum expression clarity.
+DO NOT include any text.
 `;
 }
 
@@ -38,9 +38,8 @@ CRITICAL GENERATION RULES:
 1. GENERATE EXACTLY ONE SINGLE CHARACTER centered in the frame.
 2. DO NOT create a character sheet, grid, or multiple poses.
 3. SOLID WHITE BACKGROUND (No transparency, no patterns).
-4. High contrast, clean edges, thick lines suitable for LINE sticker chat readability (370x320px).
-5. Design must be optimized for LINE messenger sticker sales appeal.
-6. Include short, readable text when it improves the intended reaction.
+4. High contrast, clean edges, thick lines suitable for tiny LINE emoji (180x180px).
+5. Design must be optimized for LINE messenger emoji sales appeal.
 
 Expression: Excited/Happy (Representative Emote)
 `;
@@ -75,7 +74,7 @@ function getLanguageSpecificCategories(language: string): string {
   switch (language) {
     case 'Korean':
       return `
-Popular Korean LINE sticker categories for high sales:
+Popular Korean LINE emoji categories for high sales:
 - Aegyo/Cute reactions
 - Daily greetings
 - Food & eating reactions
@@ -83,7 +82,7 @@ Popular Korean LINE sticker categories for high sales:
 - K-culture expressions`;
     case 'Japanese':
       return `
-Popular Japanese LINE sticker categories for high sales:
+Popular Japanese LINE emoji categories for high sales:
 - Polite responses & greetings
 - Kawaii emotional reactions
 - Seasonal & event greetings
@@ -91,7 +90,7 @@ Popular Japanese LINE sticker categories for high sales:
 - Trendy internet expressions`;
     case 'Traditional Chinese':
       return `
-Popular Traditional Chinese LINE sticker categories for high sales:
+Popular Traditional Chinese LINE emoji categories for high sales:
 - Festival & lucky greetings
 - Humorous daily reactions
 - Trendy slang expressions
@@ -113,8 +112,8 @@ export function buildEmoteIdeasPrompt(
   const languageSpecificCategories = getLanguageSpecificCategories(language);
 
   return `
-Generate 45 unique sticker ideas optimized for LINE messenger sticker sales.
-These will display at 370x320px — prioritize clear, bold designs.
+Generate 45 unique emoji ideas optimized for LINE messenger emoji sales.
+These will display at 180x180px — prioritize clear, bold designs.
 Character: ${concept}
 Style: ${visualStyleName}
 Language: ${language}
@@ -150,17 +149,17 @@ Each imagePrompt must be a SINGLE SENTENCE that:
 3. Is vivid enough to guide image generation but not overly detailed
 
 CRITICAL RULES:
-- Include short, high-contrast text when it reinforces the reaction.
+- DO NOT include any text on the emoji. Image only.
 - Distinct silhouettes for each emote.
 - Exaggerated expressions for visibility at small sizes.
-- Prioritize stickers that users will send MOST OFTEN in LINE conversations.
-- For EACH emote, write an "imagePrompt": a SINGLE SENTENCE that captures both the sticker scene AND the strategy direction.
+- Prioritize emoji that users will send MOST OFTEN in LINE conversations.
+- For EACH emote, write an "imagePrompt": a SINGLE SENTENCE that captures both the emoji scene AND the strategy direction.
 `;
 }
 
 export function buildSingleEmotePrompt(idea: EmoteIdea, characterSpec: CharacterSpec): string {
   return `
-Generate a LINE messenger sticker (will display at 370x320px).
+Generate a LINE messenger emoji (will display at 180x180px).
 
 CHARACTER IDENTITY (MUST MAINTAIN EXACTLY):
 - Appearance: ${characterSpec.physicalDescription}
@@ -173,12 +172,12 @@ ${characterSpec.facialFeatures}
 The face structure, eye shape, nose, mouth, and all facial details MUST be IDENTICAL to the reference image. Only the EXPRESSION changes (e.g., smile vs frown), never the underlying facial structure.
 
 STICKER SCENE: ${idea.imagePrompt}
-Include short, readable text that matches the expression and cultural context.
+ABSOLUTELY NO TEXT. PURE IMAGE ONLY.
 
 RULES:
 1. The character MUST look identical to the reference image - same colors, proportions, facial features.
 2. Only the expression, pose, and action should change - NOT the character design.
-3. SOLID WHITE BACKGROUND. 370x320 composition. SINGLE CHARACTER ONLY.
-4. Design for sticker chat readability: exaggerated expression, minimal background elements, bold lines.
+3. SOLID WHITE BACKGROUND. Square 1:1. SINGLE CHARACTER ONLY.
+4. Design for TINY size: exaggerated expression, minimal background elements, bold lines.
 `;
 }

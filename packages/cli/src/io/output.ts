@@ -36,7 +36,7 @@ const STAGE_LABELS: Record<string, string> = {
   'character-generation': 'Character',
   'style-selection': 'Style Selection',
   'emote-ideation': 'Emote Ideation',
-  'sticker-generation': 'Sticker Generation',
+  'sticker-generation': 'Emoji Generation',
   'post-processing': 'Post Processing',
   'metadata-generation': 'Metadata',
   export: 'Export',
@@ -50,7 +50,7 @@ const STAGE_ICONS: Record<string, string> = {
 
 export function printBanner(): void {
   if (jsonMode) return;
-  console.log(chalk.bold.cyan('\n  Sticker Master CLI') + chalk.dim(' v0.1.0'));
+  console.log(chalk.bold.cyan('\n  Emoji Master CLI') + chalk.dim(' v0.1.0'));
   console.log(chalk.dim('  ' + '='.repeat(36)) + '\n');
 }
 
@@ -94,7 +94,7 @@ export function printResult(event: ResultEvent): void {
   console.log(chalk.green.bold('  Done!'));
   console.log(`  ${chalk.dim('Session:')} ${event.session_id}`);
   console.log(`  ${chalk.dim('Output:')}  ${event.output_dir}`);
-  console.log(`  ${chalk.dim('Sticker:')} ${event.sticker_count}`);
+  console.log(`  ${chalk.dim('Emoji:')} ${event.sticker_count}`);
   console.log(`  ${chalk.dim('Time:')}    ${event.elapsed_time}`);
 
   for (const [platform, path] of Object.entries(event.exports)) {

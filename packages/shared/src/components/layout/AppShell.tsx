@@ -20,7 +20,7 @@ function AppShell({ children, hasApiKey, onOpenSettings }: AppShellProps) {
               <Sparkles className="text-primary" size={20} />
             </div>
             <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-primary-700 tracking-tight">
-              LINE Sticker Studio
+              LINE Emoji Studio
             </h1>
           </div>
 

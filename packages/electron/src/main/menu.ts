@@ -7,7 +7,7 @@ export function createMenu(): void {
     ...(isMac
       ? [
           {
-            label: 'LINE Sticker Studio',
+            label: 'LINE Emoji Studio',
             submenu: [
               { role: 'about' as const },
               { type: 'separator' as const },

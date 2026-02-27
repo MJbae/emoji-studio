@@ -1,6 +1,6 @@
 # @emoji/cli
 
-AI 기반 스티커 팩 제작 CLI 도구입니다. macOS 로컬 환경에서 터미널 또는 AI 에이전트(OpenClaw 등)를 통해 스티커 생성 파이프라인을 실행할 수 있습니다.
+AI 기반 이모티콘 팩 제작 CLI 도구입니다. macOS 로컬 환경에서 터미널 또는 AI 에이전트(OpenClaw 등)를 통해 이모티콘 생성 파이프라인을 실행할 수 있습니다.
 
 ---
 
@@ -13,7 +13,7 @@ npm install
 # API 키 설정
 npm run dev:cli -- config set-key <GEMINI_API_KEY>
 
-# 스티커 생성 (자동 모드)
+# 이모티콘 생성 (자동 모드)
 npm run dev:cli -- generate -c "귀여운 고양이" --auto
 ```
 
@@ -31,7 +31,7 @@ npm run dev:cli -- generate -c "귀여운 고양이" --auto
 
 ### generate
 
-전체 스티커 생성 파이프라인을 실행합니다.
+전체 이모티콘 생성 파이프라인을 실행합니다.
 
 ```bash
 emoji-cli generate -c <컨셉> [옵션]
@@ -41,7 +41,7 @@ emoji-cli generate -c <컨셉> [옵션]
 |------|------|--------|
 | `-c, --concept <text>` | 캐릭터 컨셉 (필수) | - |
 | `-l, --language <lang>` | 타깃 언어 (`ko`, `ja`, `zh-TW`) | `ko` |
-| `--no-text` | 텍스트 없는 스티커 생성 | `false` |
+| `--no-text` | 텍스트 없는 이모티콘 생성 | `false` |
 | `--reference-image <path>` | 참조 이미지 경로 | - |
 | `--api-key <key>` | Gemini API 키 (config 대신 직접 전달) | - |
 | `--platforms <list>` | 대상 플랫폼 (쉼표 구분 또는 `all`) | `all` |
@@ -66,7 +66,7 @@ emoji-cli generate -c "angry rabbit" --auto -l ja --platforms line_sticker,line_
 # AI 에이전트용 JSON 모드
 emoji-cli generate -c "귀여운 고양이" --json --auto -o ./output/cats
 
-# 텍스트 없는 스티커 + 아웃라인 없이
+# 텍스트 없는 이모티콘 + 아웃라인 없이
 emoji-cli generate -c "심플한 곰돌이" --no-text --outline none --auto
 
 # 참조 이미지 기반 생성
@@ -205,7 +205,7 @@ output/
 |--------|-----------|----------|
 | OGQ Sticker | 740 x 640 | 24 |
 | LINE Sticker | 370 x 320 | 40 |
-| LINE Sticker (Small) | 180 x 180 | 40 |
+| LINE Emoji | 180 x 180 | 40 |
 
 ---
 

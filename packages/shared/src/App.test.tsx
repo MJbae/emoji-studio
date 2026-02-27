@@ -3,10 +3,10 @@ import { describe, it, expect } from 'vitest';
 import App from './App';
 
 describe('App', () => {
-  it('renders LINE Sticker Studio heading after hydration', async () => {
+  it('renders LINE Emoji Studio heading after hydration', async () => {
     render(<App />);
     await waitFor(() => {
-      expect(screen.getByText('LINE Sticker Studio')).toBeInTheDocument();
+      expect(screen.getByText('LINE Emoji Studio')).toBeInTheDocument();
     });
   });
 });

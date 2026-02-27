@@ -9,7 +9,7 @@ const program = new Command();
 
 program
   .name('emoji-cli')
-  .description('AI-powered sticker pack creator — CLI for macOS')
+  .description('AI-powered emoji pack creator — CLI for macOS')
   .version('0.1.0');
 
 // ---------------------------------------------------------------------------
@@ -18,8 +18,8 @@ program
 
 program
   .command('generate')
-  .description('Run the full sticker generation pipeline')
-  .requiredOption('-c, --concept <text>', 'Sticker concept description')
+  .description('Run the full emoji generation pipeline')
+  .requiredOption('-c, --concept <text>', 'Emoji concept description')
   .option('-l, --language <lang>', 'Target market (ko, ja, zh-TW)', 'ko')
   .option('--reference-image <path>', 'Path to reference image')
   .option('--api-key <key>', 'Gemini API key (overrides config)')
