@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import { Loader2 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -59,7 +58,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...rest}
       >
         {loading ? (
-          <Loader2 className="animate-spin shrink-0" size={size === 'sm' ? 14 : 16} />
+          <div
+            className={cn(
+              'relative shrink-0 overflow-hidden rounded-full',
+              size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4'
+            )}
+            aria-hidden="true"
+          >
+            <span className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_270deg,rgba(255,255,255,0.4)_330deg,#ffffff_360deg)]" />
+            <span
+              className={cn(
+                'absolute inset-[2px] rounded-full',
+                variant === 'primary' || variant === 'danger' ? 'bg-black/10' : 'bg-slate-300'
+              )}
+            />
+          </div>
         ) : icon ? (
           <span className="shrink-0">{icon}</span>
         ) : null}

@@ -98,7 +98,10 @@ function PostProcessStage({
                   previewBg === 'black' ? 'bg-black/50' : 'bg-white/50',
                 )}
               >
-                <div className="animate-spin w-10 h-10 border-4 border-primary border-t-transparent rounded-full" />
+                <div className="relative overflow-hidden w-16 h-16 rounded-full flex items-center justify-center">
+                  <span className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_1.5s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_270deg,rgba(6,199,85,0.4)_330deg,#06C755_360deg)]" />
+                  <span className={cn('absolute inset-[4px] rounded-full', previewBg === 'black' ? 'bg-[#111]' : 'bg-white')} />
+                </div>
               </div>
             )}
             {previewSrc ? (

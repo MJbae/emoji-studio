@@ -50,11 +50,18 @@ function StickerBatchStage({
       <section
         data-stage="stickers"
         data-phase="idle"
-        className="max-w-2xl mx-auto space-y-6 text-center"
+        className="max-w-2xl mx-auto space-y-8 text-center py-10"
       >
-        <h2 className="text-3xl font-bold text-text">이모지 생성</h2>
-        <p className="text-text-muted">세트의 {totalCount}개 이모지를 자동으로 생성합니다…</p>
-        <RefreshCw className="w-8 h-8 animate-spin text-primary mx-auto" />
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold text-text">이모지 생성</h2>
+          <p className="text-text-muted">세트의 {totalCount}개 이모지를 자동으로 생성합니다…</p>
+        </div>
+        <div className="flex justify-center">
+          <div className="relative overflow-hidden rounded-full w-16 h-16">
+            <span className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_1.5s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_270deg,rgba(6,199,85,0.2)_330deg,#06C755_360deg)]" />
+            <span className="absolute inset-[3px] rounded-full bg-slate-50" />
+          </div>
+        </div>
       </section>
     );
   }
@@ -76,15 +83,21 @@ function StickerBatchStage({
         </div>
 
         <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="flex-1 sm:w-48">
-            <progress
-              value={doneCount}
-              max={totalCount}
-              aria-valuetext={`${doneCount} of ${totalCount} emoji generated`}
+          <div className="flex-1 sm:w-56">
+            <div
+              role="progressbar"
+              aria-valuenow={doneCount}
+              aria-valuemin={0}
+              aria-valuemax={totalCount}
               aria-label="Emoji generation progress"
-              className="w-full h-2 overflow-hidden [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-slate-200 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary [&::-webkit-progress-value]:transition-all [&::-moz-progress-bar]:bg-primary [&::-moz-progress-bar]:rounded-full"
-            />
-            <p className="text-xs text-text-muted mt-1 text-right">{progressPct}%</p>
+              className="w-full h-3 bg-slate-100 rounded-full overflow-hidden shadow-inner"
+            >
+              <div
+                className="h-full bg-gradient-to-r from-[#06C755] to-[#45e888] rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(6,199,85,0.4)]"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+            <p className="text-xs font-semibold text-text-muted mt-1.5 text-right">{progressPct}%</p>
           </div>
           <Button
             onClick={onContinue}
@@ -139,7 +152,10 @@ function StickerBatchStage({
                     </div>
                   </>
                 ) : sticker.status === 'loading' ? (
-                  <RefreshCw className="w-7 h-7 animate-spin text-primary-light" />
+                  <div className="relative w-8 h-8 overflow-hidden rounded-full">
+                    <span className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_270deg,rgba(6,199,85,0.2)_330deg,#06C755_360deg)]" />
+                    <span className="absolute inset-[2px] rounded-full bg-slate-50" />
+                  </div>
                 ) : sticker.status === 'error' ? (
                   <div className="text-center space-y-1.5">
                     <AlertCircle className="w-7 h-7 text-danger mx-auto" />
