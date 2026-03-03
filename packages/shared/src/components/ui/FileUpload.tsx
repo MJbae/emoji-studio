@@ -78,36 +78,44 @@ function FileUpload({
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         className={cn(
-          'relative border-2 border-dashed rounded-2xl p-10 text-center transition-all cursor-pointer',
+          'group relative overflow-hidden flex flex-col items-center justify-center p-10 text-center cursor-pointer transition-all duration-300 rounded-2xl border-2',
           isDragging
-            ? 'border-primary bg-primary/5'
-            : 'border-slate-300 hover:border-primary-light hover:bg-slate-50',
+            ? 'border-transparent shadow-lg scale-105 bg-white'
+            : 'border-dashed border-slate-300 hover:border-[#06C755]/40 hover:bg-slate-50',
         )}
         aria-label={label}
       >
-        <input
-          id={inputId}
-          type="file"
-          multiple
-          accept={accept}
-          onChange={(e) => handleFiles(e.target.files)}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          aria-label={label}
-        />
+        {isDragging && (
+          <>
+            <span className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_270deg,rgba(6,199,85,0.2)_330deg,#06C755_360deg)] opacity-100" />
+            <span className="absolute inset-[2px] rounded-[14px] bg-[#EBF7EF]" />
+          </>
+        )}
+        <div className="relative z-10 w-full flex flex-col items-center gap-3">
+          <input
+            id={inputId}
+            type="file"
+            multiple
+            accept={accept}
+            onChange={(e) => handleFiles(e.target.files)}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            aria-label={label}
+          />
 
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center">
-            {isProcessing ? (
-              <div className="animate-spin w-7 h-7 border-3 border-primary border-t-transparent rounded-full" />
-            ) : (
-              <Upload size={28} />
-            )}
-          </div>
-          <div>
-            <p className="font-semibold text-slate-800">
-              {isProcessing ? '파일 처리 중…' : '드래그 앤 드롭 또는 클릭'}
-            </p>
-            <p className="text-sm text-text-muted mt-1">PNG, JPG, WEBP, ZIP — 최대 {maxFiles}개</p>
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center pointer-events-none">
+              {isProcessing ? (
+                <div className="animate-spin w-7 h-7 border-3 border-primary border-t-transparent rounded-full" />
+              ) : (
+                <Upload size={28} />
+              )}
+            </div>
+            <div className="pointer-events-none">
+              <p className="font-semibold text-slate-800">
+                {isProcessing ? '파일 처리 중…' : '드래그 앤 드롭 또는 클릭'}
+              </p>
+              <p className="text-sm text-text-muted mt-1">PNG, JPG, WEBP, ZIP — 최대 {maxFiles}개</p>
+            </div>
           </div>
         </div>
       </div>

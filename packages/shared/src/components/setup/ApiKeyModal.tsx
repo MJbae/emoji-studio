@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Sparkles, Eye, EyeOff, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { cn } from '@/utils/cn';
+import { AnimatedInputWrapper } from '@/components/ui/AnimatedInputWrapper';
 import { generateText } from '@/services/gemini/client';
 
 interface ApiKeyModalProps {
@@ -77,7 +77,7 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
             <label htmlFor="api-key-input" className="text-sm font-medium text-slate-700">
               Gemini API 키
             </label>
-            <div className="relative">
+            <AnimatedInputWrapper error={!!error}>
               <input
                 id="api-key-input"
                 type={showKey ? 'text' : 'password'}
@@ -90,22 +90,18 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
                 placeholder="AIza..."
                 aria-label="Gemini API key"
                 data-testid="api-key-input"
-                className={cn(
-                  'w-full px-4 py-2.5 pr-10 rounded-xl border text-sm transition-colors',
-                  'focus:outline-none focus:ring-3 focus:ring-primary/20 focus:border-primary',
-                  error ? 'border-danger' : 'border-slate-300',
-                )}
+                className="w-full bg-transparent px-4 py-2.5 pr-10 text-sm text-slate-700 outline-none placeholder:text-slate-400"
               />
               <button
                 type="button"
                 onClick={() => setShowKey((s) => !s)}
                 aria-label={showKey ? 'API 키 숨기기' : 'API 키 보기'}
                 data-testid="toggle-key-visibility"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text z-20"
               >
                 {showKey ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
-            </div>
+            </AnimatedInputWrapper>
             {error && (
               <p role="alert" className="text-xs text-danger">
                 {error}

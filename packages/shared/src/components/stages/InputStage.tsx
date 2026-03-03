@@ -2,6 +2,7 @@ import { useState, useId } from 'react';
 import { Image as ImageIcon, Sparkles } from 'lucide-react';
 import type { UserInput } from '@/types/domain';
 import { Button } from '@/components/ui/Button';
+import { AnimatedInputWrapper } from '@/components/ui/AnimatedInputWrapper';
 import { cn } from '@/utils/cn';
 
 interface InputStageProps {
@@ -11,10 +12,10 @@ interface InputStageProps {
 
 const LANGUAGES = ['Korean', 'Japanese', 'Traditional Chinese'] as const;
 
-const LANG_META: Record<(typeof LANGUAGES)[number], { flag: string; native: string }> = {
-  Korean: { flag: '🇰🇷', native: '한국' },
-  Japanese: { flag: '🇯🇵', native: '일본' },
-  'Traditional Chinese': { flag: '🇹🇼', native: '대만' },
+const LANG_META: Record<(typeof LANGUAGES)[number], { native: string }> = {
+  Korean: { native: '한국' },
+  Japanese: { native: '일본' },
+  'Traditional Chinese': { native: '대만' },
 };
 
 function InputStage({ onSubmit, initialData }: InputStageProps) {
@@ -65,15 +66,17 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
           <label htmlFor={conceptId} className="block text-sm font-medium text-slate-700">
             캐릭터 컨셉 <span className="text-danger">*</span>
           </label>
-          <textarea
-            id={conceptId}
-            value={data.concept}
-            onChange={(e) => setData((prev) => ({ ...prev, concept: e.target.value }))}
-            placeholder="예: 해바라기씨와 게임을 좋아하는 귀여운 통통한 햄스터"
-            aria-label="Character concept description"
-            data-testid="concept-textarea"
-            className="w-full h-32 p-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-3 focus:ring-primary/20 transition-all resize-none text-sm"
-          />
+          <AnimatedInputWrapper>
+            <textarea
+              id={conceptId}
+              value={data.concept}
+              onChange={(e) => setData((prev) => ({ ...prev, concept: e.target.value }))}
+              placeholder="예: 해바라기씨와 게임을 좋아하는 귀여운 통통한 햄스터"
+              aria-label="Character concept description"
+              data-testid="concept-textarea"
+              className="h-32 w-full resize-none bg-transparent p-4 text-sm outline-none"
+            />
+          </AnimatedInputWrapper>
           <p className="text-xs text-text-muted">
             {data.concept.length < 3
               ? `${3 - data.concept.length}자 더 필요`
@@ -102,14 +105,25 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                   data-testid={`lang-${lang.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setData((prev) => ({ ...prev, language: lang }))}
                   className={cn(
-                    'p-3 rounded-xl border text-sm font-medium transition-all flex flex-col items-center gap-1',
+                    'group relative flex flex-col items-center justify-center rounded-2xl text-base font-bold transition-all duration-300 w-full text-center overflow-hidden',
                     isSelected
-                      ? 'bg-primary/5 border-primary text-primary-dark'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-600',
+                      ? 'p-[2px] shadow-lg scale-105 z-10 text-[#111111] bg-white'
+                      : 'p-4 border-2 bg-white border-slate-100 hover:border-[#06C755]/40 hover:bg-slate-50 hover:-translate-y-1 hover:shadow-md text-slate-500 active:scale-95',
                   )}
                 >
-                  <span className="text-lg grayscale-[0.5]">{meta.flag}</span>
-                  <span>{meta.native}</span>
+                  {isSelected && (
+                    <>
+                      <span className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_270deg,rgba(6,199,85,0.2)_330deg,#06C755_360deg)]" />
+                      <span className="absolute inset-[2px] rounded-[14px] bg-[#EBF7EF]" />
+                    </>
+                  )}
+
+                  <span className={cn(
+                    "relative z-10 transition-transform duration-300 ease-out group-hover:scale-110",
+                    isSelected && "w-full py-[14px] px-[14px] flex items-center justify-center"
+                  )}>
+                    {meta.native}
+                  </span>
                 </button>
               );
             })}

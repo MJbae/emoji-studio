@@ -3,6 +3,7 @@ import { RefreshCw, Clock, AlertCircle, Pencil } from 'lucide-react';
 import type { Sticker } from '@/types/domain';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { AnimatedInputWrapper } from '@/components/ui/AnimatedInputWrapper';
 
 interface StickerBatchStageProps {
   stickers: Sticker[];
@@ -172,14 +173,16 @@ function StickerBatchStage({
                   <label className="block text-xs font-semibold text-slate-600 mb-1">
                     생성 프롬프트
                   </label>
-                  <textarea
-                    value={editPrompt}
-                    onChange={(e) => setEditPrompt(e.target.value)}
-                    rows={3}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    aria-label="Edit generation prompt"
-                    data-testid={`edit-prompt-${sticker.id}`}
-                  />
+                  <AnimatedInputWrapper>
+                    <textarea
+                      value={editPrompt}
+                      onChange={(e) => setEditPrompt(e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent px-3 py-2 text-sm resize-none outline-none"
+                      aria-label="Edit generation prompt"
+                      data-testid={`edit-prompt-${sticker.id}`}
+                    />
+                  </AnimatedInputWrapper>
                 </div>
                 <div className="flex gap-2 justify-end">
                   <Button variant="outline" size="sm" onClick={cancelEdit}>
