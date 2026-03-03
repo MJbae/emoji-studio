@@ -36,14 +36,24 @@ function StageStepper({ currentStage, mode, completedStages, onStageClick }: Sta
   return (
     <nav aria-label="Workflow stages" className="w-full py-4" data-testid="stage-stepper">
       <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
-        <ol className="flex items-center gap-1 min-w-[320px] sm:min-w-0">
+        <ol className="flex items-start w-full min-w-[320px] sm:min-w-0">
           {steps.map((step, index) => {
             const isCompleted = completedStages.has(step.id);
             const isCurrent = step.id === currentStage;
             const isClickable = isCompleted;
 
             return (
-              <li key={step.id} className="flex-1 flex items-center">
+              <li key={step.id} className="relative flex-1 min-w-0">
+                {/* Uniform connecting lines, attached half-way to previous step */}
+                {index > 0 && (
+                  <div
+                    className={cn(
+                      'absolute top-4 h-0.5 transition-colors z-0',
+                      index <= currentIndex ? 'bg-primary' : 'bg-slate-200'
+                    )}
+                    style={{ left: 'calc(-50% + 16px)', right: 'calc(50% + 16px)' }}
+                  />
+                )}
                 <button
                   onClick={() => isClickable && onStageClick(step.id)}
                   disabled={!isClickable}
@@ -52,45 +62,26 @@ function StageStepper({ currentStage, mode, completedStages, onStageClick }: Sta
                   data-stage={step.id}
                   data-testid={`stage-step-${step.id}`}
                   className={cn(
-                    'w-full flex flex-col items-center gap-1.5 group relative',
-                    isClickable && 'cursor-pointer',
-                    !isClickable && !isCurrent && 'cursor-default',
+                    'w-full flex flex-col items-center gap-1.5 focus:outline-none relative z-10',
+                    isClickable ? 'cursor-pointer hover:opacity-80' : 'cursor-default'
                   )}
                 >
-                  <div className="flex items-center w-full">
-                    {index > 0 && (
-                      <div
-                        className={cn(
-                          'flex-1 h-0.5 transition-colors',
-                          index <= currentIndex ? 'bg-primary' : 'bg-slate-200',
-                        )}
-                      />
+                  <div
+                    className={cn(
+                      'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all',
+                      isCompleted ? 'bg-primary text-white' : '',
+                      isCurrent && !isCompleted ? 'bg-primary text-white ring-3 ring-primary/20' : '',
+                      !isCurrent && !isCompleted ? 'bg-slate-200 text-slate-500' : ''
                     )}
-                    <div
-                      className={cn(
-                        'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all',
-                        isCompleted && 'bg-primary text-white',
-                        isCurrent && !isCompleted && 'bg-primary text-white ring-3 ring-primary/20',
-                        !isCurrent && !isCompleted && 'bg-slate-200 text-slate-500',
-                      )}
-                    >
-                      {isCompleted ? <Check size={14} /> : index + 1}
-                    </div>
-                    {index < steps.length - 1 && (
-                      <div
-                        className={cn(
-                          'flex-1 h-0.5 transition-colors',
-                          index < currentIndex ? 'bg-primary' : 'bg-slate-200',
-                        )}
-                      />
-                    )}
+                  >
+                    {isCompleted ? <Check size={14} /> : index + 1}
                   </div>
                   <span
                     className={cn(
                       'text-[10px] sm:text-xs font-medium transition-colors leading-tight text-center',
-                      isCurrent && 'text-primary',
-                      isCompleted && !isCurrent && 'text-slate-600',
-                      !isCurrent && !isCompleted && 'text-slate-400',
+                      isCurrent ? 'text-primary' : '',
+                      isCompleted && !isCurrent ? 'text-slate-600' : '',
+                      !isCurrent && !isCompleted ? 'text-slate-400' : ''
                     )}
                   >
                     <span className="hidden sm:inline">{step.label}</span>
