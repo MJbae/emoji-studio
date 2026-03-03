@@ -78,7 +78,7 @@ function FileUpload({
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         className={cn(
-          'group relative overflow-hidden flex flex-col items-center justify-center p-10 text-center cursor-pointer transition-all duration-300 rounded-2xl border-2',
+          'group relative overflow-hidden flex flex-col items-center justify-center p-6 sm:p-10 text-center cursor-pointer transition-all duration-300 rounded-2xl border-2',
           isDragging
             ? 'border-transparent shadow-lg scale-105 bg-white'
             : 'border-dashed border-slate-300 hover:border-[#06C755]/40 hover:bg-slate-50',
@@ -128,12 +128,12 @@ function FileUpload({
           role="alert"
           className="p-3 bg-danger-light text-danger rounded-lg flex items-center gap-2 text-sm"
         >
-          <AlertCircle size={16} />
-          {error}
+          <AlertCircle size={16} className="shrink-0" />
+          <span>{error}</span>
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-3 text-center">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
         {[
           { Icon: ImageIcon, text: 'ZIP 자동 추출' },
           { Icon: Upload, text: '고해상도 지원' },
@@ -141,7 +141,7 @@ function FileUpload({
         ].map(({ Icon, text }) => (
           <div
             key={text}
-            className="p-3 bg-white rounded-lg border border-slate-100 flex flex-col items-center gap-1.5"
+            className="p-3 bg-white rounded-lg border border-slate-100 flex sm:flex-col items-center justify-center gap-2 sm:gap-1.5"
           >
             <Icon className="text-primary" size={18} />
             <span className="text-xs font-medium text-text-muted">{text}</span>

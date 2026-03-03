@@ -45,7 +45,7 @@ function PostProcessStage({
         {selectedIds.size}개 이미지에 적용됩니다.
       </p>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-4">
           <ProcessingOptions options={processingOptions} onChange={onOptionsChange} />
         </div>
@@ -125,8 +125,8 @@ function PostProcessStage({
         </div>
       </div>
 
-      <div className="flex justify-between pt-4">
-        <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn">
+      <div className="flex flex-col-reverse sm:flex-row justify-between pt-4 gap-3 sm:gap-0">
+        <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn" className="w-full sm:w-auto">
           이전
         </Button>
         <Button
@@ -135,6 +135,7 @@ function PostProcessStage({
           size="lg"
           aria-label="Continue to metadata"
           data-testid="continue-btn"
+          className="w-full sm:w-auto"
         >
           다음 →
         </Button>

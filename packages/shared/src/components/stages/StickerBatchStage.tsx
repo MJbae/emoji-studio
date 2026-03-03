@@ -73,7 +73,7 @@ function StickerBatchStage({
       className="max-w-7xl mx-auto space-y-6"
     >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 sticky top-16 z-30 gap-4 shadow-md transition-all">
-        <div className="space-y-1">
+        <div className="space-y-1 w-full sm:w-auto text-center sm:text-left">
           <h2 className="text-lg font-bold text-text">이모지 세트 생성 중</h2>
           <div role="status" aria-live="polite" className="text-sm text-text-muted">
             {isGenerating
@@ -82,8 +82,8 @@ function StickerBatchStage({
           </div>
         </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="flex-1 sm:w-56">
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="flex-1 w-full sm:w-56">
             <div
               role="progressbar"
               aria-valuenow={doneCount}

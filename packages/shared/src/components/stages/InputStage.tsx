@@ -74,7 +74,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
               placeholder="예: 해바라기씨와 게임을 좋아하는 귀여운 통통한 햄스터"
               aria-label="Character concept description"
               data-testid="concept-textarea"
-              className="h-32 w-full resize-none bg-transparent p-4 text-sm outline-none"
+              className="h-28 sm:h-32 w-full resize-none bg-transparent p-3 sm:p-4 text-sm outline-none"
             />
           </AnimatedInputWrapper>
           <p className="text-xs text-text-muted">
@@ -105,10 +105,10 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                   data-testid={`lang-${lang.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setData((prev) => ({ ...prev, language: lang }))}
                   className={cn(
-                    'group relative flex flex-col items-center justify-center rounded-2xl text-base font-bold transition-all duration-300 w-full text-center overflow-hidden',
+                    'group relative flex flex-col items-center justify-center rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 w-full text-center overflow-hidden',
                     isSelected
-                      ? 'p-[2px] shadow-lg scale-105 z-10 text-[#111111] bg-white'
-                      : 'p-4 border-2 bg-white border-slate-100 hover:border-[#06C755]/40 hover:bg-slate-50 hover:-translate-y-1 hover:shadow-md text-slate-500 active:scale-95',
+                      ? 'p-[2px] shadow-lg scale-[1.02] sm:scale-105 z-10 text-[#111111] bg-white'
+                      : 'p-3 sm:p-4 border-2 bg-white border-slate-100 hover:border-[#06C755]/40 hover:bg-slate-50 hover:-translate-y-[2px] sm:hover:-translate-y-1 hover:shadow-sm sm:hover:shadow-md text-slate-500 active:scale-95',
                   )}
                 >
                   {isSelected && (
@@ -119,8 +119,8 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                   )}
 
                   <span className={cn(
-                    "relative z-10 transition-transform duration-300 ease-out group-hover:scale-110",
-                    isSelected && "w-full py-[14px] px-[14px] flex items-center justify-center"
+                    "relative z-10 transition-transform duration-300 ease-out sm:group-hover:scale-110",
+                    isSelected && "w-full py-[10px] sm:py-[14px] px-[10px] sm:px-[14px] flex items-center justify-center"
                   )}>
                     {meta.native}
                   </span>
