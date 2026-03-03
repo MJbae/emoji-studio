@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Check } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import type { WorkflowStage, WorkflowMode } from '@/store/slices/workflowSlice';
@@ -15,22 +16,23 @@ interface StepDef {
   shortLabel: string;
 }
 
-const FULL_STEPS: StepDef[] = [
-  { id: 'input', label: '컨셉 입력', shortLabel: '입력' },
-  { id: 'strategy', label: 'AI 전략', shortLabel: '전략' },
-  { id: 'character', label: '캐릭터', shortLabel: '캐릭터' },
-  { id: 'stickers', label: '이모지', shortLabel: '이모지' },
-  { id: 'postprocess', label: '후처리', shortLabel: '후처리' },
-  { id: 'metadata', label: '메타 · 내보내기', shortLabel: '내보내기' },
+const getFullSteps = (t: any): StepDef[] => [
+  { id: 'input', label: t('stepper.input'), shortLabel: t('stepper.inputShort') },
+  { id: 'strategy', label: t('stepper.strategy'), shortLabel: t('stepper.strategyShort') },
+  { id: 'character', label: t('stepper.character'), shortLabel: t('stepper.characterShort') },
+  { id: 'stickers', label: t('stepper.stickers'), shortLabel: t('stepper.stickersShort') },
+  { id: 'postprocess', label: t('stepper.postprocess'), shortLabel: t('stepper.postprocessShort') },
+  { id: 'metadata', label: t('stepper.metadata'), shortLabel: t('stepper.metadataShort') },
 ];
 
-const POSTPROCESS_STEPS: StepDef[] = [
-  { id: 'postprocess', label: '후처리', shortLabel: '후처리' },
-  { id: 'metadata', label: '메타 · 내보내기', shortLabel: '내보내기' },
+const getPostprocessSteps = (t: any): StepDef[] => [
+  { id: 'postprocess', label: t('stepper.postprocess'), shortLabel: t('stepper.postprocessShort') },
+  { id: 'metadata', label: t('stepper.metadata'), shortLabel: t('stepper.metadataShort') },
 ];
 
 function StageStepper({ currentStage, mode, completedStages, onStageClick }: StageStepperProps) {
-  const steps = mode === 'full' ? FULL_STEPS : POSTPROCESS_STEPS;
+  const { t } = useTranslation();
+  const steps = mode === 'full' ? getFullSteps(t) : getPostprocessSteps(t);
   const currentIndex = steps.findIndex((s) => s.id === currentStage);
 
   return (

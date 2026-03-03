@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Sparkles, RefreshCw, ChevronDown, ChevronUp, Fingerprint } from 'lucide-react';
 import type { CharacterSpec } from '@/types/domain';
@@ -15,12 +16,12 @@ interface CharacterStageProps {
   onBack: () => void;
 }
 
-const SPEC_FIELDS: { key: keyof CharacterSpec; label: string }[] = [
-  { key: 'physicalDescription', label: '외형 묘사' },
-  { key: 'facialFeatures', label: '얼굴 특징' },
-  { key: 'colorPalette', label: '색상 팔레트' },
-  { key: 'distinguishingFeatures', label: '특징적 요소' },
-  { key: 'artStyle', label: '아트 스타일' },
+const getSpecFields = (t: any): { key: keyof CharacterSpec; label: string }[] => [
+  { key: 'physicalDescription', label: t('character.physicalDesc') },
+  { key: 'facialFeatures', label: t('character.facialFeatures') },
+  { key: 'colorPalette', label: t('character.colorPalette') },
+  { key: 'distinguishingFeatures', label: t('character.distinguishingFeatures') },
+  { key: 'artStyle', label: t('character.artStyle') },
 ];
 
 function CharacterStage({
@@ -32,12 +33,14 @@ function CharacterStage({
   onContinue,
   onBack,
 }: CharacterStageProps) {
+  const { t } = useTranslation();
+  const SPEC_FIELDS = getSpecFields(t);
   const [specExpanded, setSpecExpanded] = useState(false);
 
   if (loading) {
     return (
       <section data-stage="character" data-phase="loading" className="flex flex-col items-center justify-center min-h-[50vh]">
-        <Loader title="베이스 캐릭터 디자인 중" text="프롬프트와 전략에 따라 기본 형태를 스케치 중입니다…" size="xl" />
+        <Loader title={t('character.designing')} text={t('character.designingDesc')} size="xl" />
       </section>
     );
   }
@@ -51,10 +54,10 @@ function CharacterStage({
       <div className="text-center space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
           <Sparkles size={14} />
-          3단계
+          {t('character.step3')}
         </div>
-        <h2 className="text-3xl font-bold text-text">캐릭터 생성</h2>
-        <p className="text-text-muted">생성된 베이스 캐릭터를 확인하세요.</p>
+        <h2 className="text-3xl font-bold text-text">{t('character.title')}</h2>
+        <p className="text-text-muted">{t('character.subtitle')}</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -62,7 +65,7 @@ function CharacterStage({
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
               <Sparkles size={16} className="text-primary" />
-              생성된 캐릭터
+              {t('character.generatedChar')}
             </h3>
             <Button
               variant="ghost"
@@ -73,7 +76,7 @@ function CharacterStage({
               aria-label="Regenerate character"
               data-testid="regenerate-btn"
             >
-              재생성
+              {t('character.regenerate')}
             </Button>
           </div>
 
@@ -96,11 +99,11 @@ function CharacterStage({
                   aria-label="Retry character generation"
                   data-testid="retry-btn"
                 >
-                  재시도
+                  {t('character.retry')}
                 </Button>
               </div>
             ) : (
-              <p className="text-text-muted text-sm">아직 이미지가 생성되지 않았습니다</p>
+              <p className="text-text-muted text-sm">{t('character.notGeneratedYet')}</p>
             )}
           </div>
         </Card>
@@ -116,7 +119,7 @@ function CharacterStage({
             >
               <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
                 <Fingerprint size={16} className="text-primary-700" />
-                캐릭터 정보
+                {t('character.charInfo')}
               </h3>
               {specExpanded ? (
                 <ChevronUp size={16} className="text-slate-400" />
@@ -138,14 +141,14 @@ function CharacterStage({
               </div>
             )}
 
-            {!specExpanded && <p className="text-xs text-text-muted">상세 정보 펼치기</p>}
+            {!specExpanded && <p className="text-xs text-text-muted">{t('character.expandDetails')}</p>}
           </Card>
         )}
       </div>
 
       <div className="flex justify-between pt-4">
         <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn">
-          이전
+          {t('strategy.back')}
         </Button>
         <Button
           onClick={onContinue}
@@ -154,7 +157,7 @@ function CharacterStage({
           aria-label="Continue to emoji generation"
           data-testid="continue-btn"
         >
-          이모지 생성으로 →
+          {t('character.toEmojiGen')}
         </Button>
       </div>
     </section>

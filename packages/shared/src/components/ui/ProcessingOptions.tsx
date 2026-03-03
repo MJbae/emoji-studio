@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Wand2, Layers } from 'lucide-react';
 import type { ProcessingOptions as ProcessingOptionsType, OutlineStyle } from '@/types/domain';
 import { cn } from '@/utils/cn';
@@ -48,6 +49,7 @@ function Toggle({
 }
 
 function ProcessingOptions({ options, onChange }: ProcessingOptionsProps) {
+  const { t } = useTranslation();
   const thicknessId = useId();
   const opacityId = useId();
 
@@ -59,8 +61,8 @@ function ProcessingOptions({ options, onChange }: ProcessingOptionsProps) {
   };
 
   const outlineStyles: { value: OutlineStyle; label: string; dotClass: string }[] = [
-    { value: 'white', label: '흰색', dotClass: 'bg-white border border-slate-300' },
-    { value: 'black', label: '검정', dotClass: 'bg-black' },
+    { value: 'white', label: t('postprocess.outlineWhite'), dotClass: 'bg-white border border-slate-300' },
+    { value: 'black', label: t('postprocess.outlineBlack'), dotClass: 'bg-black' },
   ];
 
   return (
@@ -68,32 +70,32 @@ function ProcessingOptions({ options, onChange }: ProcessingOptionsProps) {
       <section className="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
         <h3 className="font-semibold text-sm flex items-center gap-2 text-slate-800">
           <Wand2 size={16} className="text-primary" />
-          정리
+          {t('postprocess.cleanup')}
         </h3>
         <Toggle
           checked={options.isBgRemovalEnabled}
           onToggle={() => update('isBgRemovalEnabled', !options.isBgRemovalEnabled)}
-          label="배경 제거"
+          label={t('postprocess.removeBg')}
         />
-        <p className="text-xs text-text-muted">좌측 상단 픽셀 색상과 일치하는 배경을 제거합니다.</p>
+        <p className="text-xs text-text-muted">{t('postprocess.removeBgDesc')}</p>
       </section>
 
       <section className="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
         <h3 className="font-semibold text-sm flex items-center gap-2 text-slate-800">
           <Layers size={16} className="text-primary" />
-          외곽선 효과
+          {t('postprocess.outlineEffect')}
         </h3>
 
         <Toggle
           checked={options.isOutlineEnabled}
           onToggle={() => update('isOutlineEnabled', !options.isOutlineEnabled)}
-          label="외곽선 활성화"
+          label={t('postprocess.enableOutline')}
         />
 
         {options.isOutlineEnabled && (
           <div className="space-y-4 pt-2 border-t border-slate-100">
             <fieldset>
-              <legend className="text-xs font-medium text-slate-600 mb-2">스타일</legend>
+              <legend className="text-xs font-medium text-slate-600 mb-2">{t('postprocess.style')}</legend>
               <div className="grid grid-cols-2 gap-2">
                 {outlineStyles.map((s) => (
                   <button

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles, RefreshCw, Copy, Check, Hash, Download } from 'lucide-react';
 import type { MetaResult, LanguageCode, LanguageEntry } from '@/types/domain';
 import { Card } from '@/components/ui/Card';
@@ -39,6 +40,7 @@ function MetadataStage({
   exportError,
   onBack,
 }: MetadataStageProps) {
+  const { t } = useTranslation();
   const hasResults = results.length > 0;
 
   const resultsByLang = results.reduce<Record<string, MetaResult[]>>((acc, res) => {
@@ -51,7 +53,7 @@ function MetadataStage({
   if (loading) {
     return (
       <section data-stage="metadata" data-phase="loading" className="flex flex-col items-center justify-center min-h-[50vh]">
-        <Loader title="메타데이터 자동 생성 중" text="Gemini AI로 메타데이터 생성 중…" size="xl" />
+        <Loader title={t('metadata.generating')} text={t('metadata.generatingDesc')} size="xl" />
       </section>
     );
   }
@@ -62,13 +64,12 @@ function MetadataStage({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
             <Sparkles size={14} />
-            6단계
+            {t('metadata.step6')}
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-text">AI 메타데이터 생성기</h2>
+            <h2 className="text-2xl font-bold text-text">{t('metadata.title')}</h2>
             <p className="text-text-muted mt-2 max-w-lg mx-auto">
-              대상 언어를 선택하세요 (복수 선택 가능). Gemini AI가 이모지를 분석하여 각 언어에
-              최적화된 메타데이터를 생성합니다.
+              {t('metadata.subtitle')}
             </p>
           </div>
 
@@ -94,7 +95,6 @@ function MetadataStage({
                       : 'border-slate-200 hover:border-primary-300 text-slate-600',
                   )}
                 >
-                  <span>{lang.flag}</span>
                   <span>{lang.label}</span>
                 </button>
               ))}
@@ -110,7 +110,7 @@ function MetadataStage({
             aria-label="Generate metadata"
             data-testid="generate-metadata-btn"
           >
-            메타데이터 생성
+            {t('metadata.generate')}
           </Button>
         </div>
       )}
@@ -120,7 +120,7 @@ function MetadataStage({
           <div className="flex flex-col sm:flex-row justify-between items-center bg-white/90 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/60 sticky top-16 z-10 gap-3 shadow-md transition-all">
             <h3 className="text-lg font-bold text-text flex items-center gap-2">
               <Sparkles className="text-primary" size={18} />
-              생성 결과
+              {t('metadata.results')}
             </h3>
             <div className="flex gap-2">
               <Button
@@ -131,7 +131,7 @@ function MetadataStage({
                 aria-label="Regenerate metadata"
                 data-testid="regenerate-metadata-btn"
               >
-                재생성
+                {t('character.regenerate')}
               </Button>
               <Button
                 onClick={onExport}
@@ -141,7 +141,7 @@ function MetadataStage({
                 aria-label="Export emoji ZIP"
                 data-testid="export-btn"
               >
-                ZIP 내보내기
+                {t('metadata.exportZip')}
               </Button>
             </div>
           </div>
@@ -150,7 +150,7 @@ function MetadataStage({
             <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
               <div className="flex items-center gap-3">
                 <Download className="text-primary animate-bounce" size={20} />
-                <span className="text-sm font-medium text-text">내보내기 중…</span>
+                <span className="text-sm font-medium text-text">{t('metadata.exporting')}</span>
               </div>
               <progress
                 value={exportProgress}
@@ -165,11 +165,10 @@ function MetadataStage({
             <div className="bg-red-50 p-4 rounded-2xl border border-red-200 flex items-start gap-3">
               <span className="text-red-500 shrink-0 mt-0.5">⚠</span>
               <div className="space-y-1">
-                <p className="text-sm font-medium text-red-800">내보내기 실패</p>
+                <p className="text-sm font-medium text-red-800">{t('metadata.exportFailed')}</p>
                 <p className="text-xs text-red-600">{exportError}</p>
                 <p className="text-xs text-text-muted">
-                  인앱 브라우저에서는 다운로드가 제한될 수 있습니다. Safari 또는 Chrome에서 다시
-                  시도해 주세요.
+                  {t('metadata.exportFailedDesc')}
                 </p>
               </div>
             </div>
@@ -180,7 +179,6 @@ function MetadataStage({
             return (
               <div key={code} className="space-y-4">
                 <div className="flex items-center gap-2 text-lg font-bold text-slate-700 border-b border-slate-200 pb-2">
-                  <span className="text-2xl">{langInfo?.flag}</span>
                   <span>{langInfo?.label}</span>
                   <span className="text-text-muted text-sm font-normal ml-auto">
                     {langInfo?.nativeName}
@@ -209,7 +207,7 @@ function MetadataStage({
       {!hasResults && (
         <div className="flex justify-start pt-4">
           <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn">
-            이전
+            {t('strategy.back')}
           </Button>
         </div>
       )}
@@ -226,6 +224,7 @@ function MetaResultCard({
   isSelected: boolean;
   onSelect: () => void;
 }) {
+  const { t } = useTranslation();
   const [copiedTags, setCopiedTags] = useState(false);
 
   const scoreAvg =
@@ -270,10 +269,10 @@ function MetaResultCard({
         >
           {isSelected ? (
             <span className="flex items-center gap-1">
-              <Check size={12} /> 선택됨
+              <Check size={12} /> {t('metadata.selected')}
             </span>
           ) : (
-            '선택'
+            t('metadata.select')
           )}
         </Button>
       </div>
@@ -281,14 +280,14 @@ function MetaResultCard({
       <div className="p-5 flex-1 flex flex-col gap-3">
         <div>
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-0.5">
-            제목
+            {t('metadata.titleLabel')}
           </p>
           <p className="font-bold text-slate-800 text-base leading-tight">{result.title}</p>
         </div>
 
         <div>
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-0.5">
-            설명
+            {t('metadata.descLabel')}
           </p>
           <p className="text-sm text-text-muted leading-relaxed">{result.description}</p>
         </div>
@@ -296,7 +295,7 @@ function MetaResultCard({
         <div>
           <div className="flex justify-between items-center mb-1.5">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1">
-              <Hash size={10} /> 태그 ({result.tags.length})
+              <Hash size={10} /> {t('metadata.tags')} ({result.tags.length})
             </p>
             <button
               onClick={copyTags}
@@ -308,7 +307,7 @@ function MetaResultCard({
               )}
             >
               {copiedTags ? <Check size={10} /> : <Copy size={10} />}
-              {copiedTags ? '복사됨' : '복사'}
+              {copiedTags ? t('metadata.copied') : t('metadata.copy')}
             </button>
           </div>
           <div className="flex flex-wrap gap-1">
@@ -325,21 +324,21 @@ function MetaResultCard({
 
         <div className="mt-auto pt-3 border-t border-slate-100">
           <div className="flex justify-between items-end mb-1.5">
-            <span className="text-xs font-bold text-slate-400">품질 점수</span>
+            <span className="text-xs font-bold text-slate-400">{t('metadata.qualityScore')}</span>
             <span className={cn('text-lg font-bold', scoreColor)}>{scoreAvg.toFixed(1)}</span>
           </div>
           <div className="grid grid-cols-2 gap-y-0.5 gap-x-4 text-xs text-text-muted">
             <div className="flex justify-between">
-              <span>자연스러움</span> <b>{result.evaluation.naturalness}</b>
+              <span>{t('metadata.naturalness')}</span> <b>{result.evaluation.naturalness}</b>
             </div>
             <div className="flex justify-between">
-              <span>톤</span> <b>{result.evaluation.tone}</b>
+              <span>{t('metadata.tone')}</span> <b>{result.evaluation.tone}</b>
             </div>
             <div className="flex justify-between">
-              <span>SEO</span> <b>{result.evaluation.searchability}</b>
+              <span>{t('metadata.seo')}</span> <b>{result.evaluation.searchability}</b>
             </div>
             <div className="flex justify-between">
-              <span>창의성</span> <b>{result.evaluation.creativity}</b>
+              <span>{t('metadata.creativity')}</span> <b>{result.evaluation.creativity}</b>
             </div>
           </div>
         </div>

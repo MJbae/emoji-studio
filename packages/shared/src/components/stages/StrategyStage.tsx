@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Brain, TrendingUp, Globe, Users, ChevronDown, ChevronUp } from 'lucide-react';
 import type { LLMStrategy, PersonaInsight } from '@/types/domain';
@@ -34,6 +35,7 @@ function StrategyStage({
   onRetry,
   onBack,
 }: StrategyStageProps) {
+  const { t } = useTranslation();
   const [expandedInsights, setExpandedInsights] = useState<Record<number, boolean>>({});
 
   const toggleInsight = (index: number) => {
@@ -43,7 +45,7 @@ function StrategyStage({
   if (loading) {
     return (
       <section data-stage="strategy" data-phase="loading" className="flex flex-col items-center justify-center min-h-[50vh]">
-        <Loader title="컨셉 전략 분석 중" text="AI 전문가 패널이 컨셉을 분석 중입니다…" size="xl" />
+        <Loader title={t('strategy.analyzing')} text={t('strategy.analyzingDesc')} size="xl" />
       </section>
     );
   }
@@ -61,11 +63,11 @@ function StrategyStage({
             aria-label="Retry analysis"
             data-testid="retry-btn"
           >
-            분석 재시도
+            {t('strategy.retryAnalysis')}
           </Button>
         </div>
         <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn">
-          이전
+          {t('strategy.back')}
         </Button>
       </section>
     );
@@ -78,16 +80,16 @@ function StrategyStage({
       <div className="text-center space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
           <Brain size={14} />
-          AI 전문가 패널
+          {t('strategy.panel')}
         </div>
-        <h2 className="text-3xl font-bold text-text">전략 분석</h2>
-        <p className="text-text-muted">AI가 생성한 이모지 세트 전략을 검토하세요.</p>
+        <h2 className="text-3xl font-bold text-text">{t('strategy.title')}</h2>
+        <p className="text-text-muted">{t('strategy.subtitle')}</p>
       </div>
 
       <div className="space-y-4">
         {strategy.culturalNotes && (
           <CollapsibleStrategyCard
-            title="문화적 고려사항"
+            title={t('strategy.culturalNotes')}
             icon={<Globe className="w-5 h-5 text-green-700" />}
             iconBg="bg-green-100"
           >
@@ -99,7 +101,7 @@ function StrategyStage({
 
         {strategy.salesReasoning && (
           <CollapsibleStrategyCard
-            title="판매 전략"
+            title={t('strategy.salesReasoning')}
             icon={<TrendingUp className="w-5 h-5 text-lime-700" />}
             iconBg="bg-lime-100"
           >
@@ -114,7 +116,7 @@ function StrategyStage({
             <div className="flex items-center gap-2 px-1">
               <Users className="w-4 h-4 text-text-muted" />
               <h3 className="font-bold text-slate-700 text-xs uppercase tracking-wide">
-                전문가 인사이트
+                {t('strategy.expertInsights')}
               </h3>
             </div>
             {strategy.personaInsights.map((insight: PersonaInsight, index: number) => {
@@ -161,7 +163,7 @@ function StrategyStage({
 
       <div className="flex justify-between pt-6">
         <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn">
-          이전
+          {t('strategy.back')}
         </Button>
         <Button
           onClick={onContinue}
@@ -169,7 +171,7 @@ function StrategyStage({
           aria-label="Continue to character generation"
           data-testid="continue-btn"
         >
-          다음 →
+          {t('strategy.next')}
         </Button>
       </div>
     </section>
@@ -214,7 +216,9 @@ function CollapsibleStrategyCard({
             </div>
           </div>
           {!expanded && (
-            <p className="text-xs text-text-muted truncate mt-1">클릭하여 상세 내용 확인</p>
+            <p className="text-xs text-text-muted truncate mt-1">
+              <span className="hidden sm:inline">Click for details / </span>클릭하여 상세 내용 확인
+            </p>
           )}
           {expanded && (
             <div className="mt-3 pt-3 border-t border-slate-100 animate-fade-in">{children}</div>

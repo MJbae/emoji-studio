@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RefreshCw, Clock, AlertCircle, Pencil } from 'lucide-react';
 import type { Sticker } from '@/types/domain';
 import { Card } from '@/components/ui/Card';
@@ -25,6 +26,7 @@ function StickerBatchStage({
   onBack,
   onEditIdea,
 }: StickerBatchStageProps) {
+  const { t } = useTranslation();
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editPrompt, setEditPrompt] = useState('');
 
@@ -54,8 +56,8 @@ function StickerBatchStage({
         className="flex flex-col items-center justify-center min-h-[50vh]"
       >
         <Loader
-          title="이모지 자동 생성 중"
-          text={`세트의 ${totalCount}개 이모지를 자동으로 일관성 있게 생성합니다…`}
+          title={t('stickers.generating')}
+          text={t('stickers.generatingDesc', { count: totalCount })}
           size="xl"
         />
       </section>
@@ -70,11 +72,11 @@ function StickerBatchStage({
     >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 sticky top-16 z-30 gap-4 shadow-md transition-all">
         <div className="space-y-1 w-full sm:w-auto text-center sm:text-left">
-          <h2 className="text-lg font-bold text-text">이모지 세트 생성 중</h2>
+          <h2 className="text-lg font-bold text-text">{t('stickers.generatingTitle')}</h2>
           <div role="status" aria-live="polite" className="text-sm text-text-muted">
             {isGenerating
-              ? `처리 중… ${doneCount} / ${totalCount}`
-              : `완료 — ${doneCount}개 생성, ${errorCount}개 실패`}
+              ? t('stickers.processing', { done: doneCount, total: totalCount })
+              : t('stickers.completed', { done: doneCount, error: errorCount })}
           </div>
         </div>
 
@@ -102,7 +104,7 @@ function StickerBatchStage({
             aria-label="Continue to post-processing"
             data-testid="continue-btn"
           >
-            다음 →
+            {t('strategy.next')}
           </Button>
         </div>
       </div>
@@ -160,7 +162,7 @@ function StickerBatchStage({
                       data-testid={`retry-${sticker.id}`}
                       className="text-xs text-primary font-semibold underline"
                     >
-                      재시도
+                      {t('character.retry')}
                     </button>
                   </div>
                 ) : (
@@ -182,7 +184,7 @@ function StickerBatchStage({
               <div className="col-span-full bg-white border border-primary/30 rounded-xl p-4 space-y-3 -mt-2 shadow-sm">
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 mb-1">
-                    생성 프롬프트
+                    {t('stickers.regenPrompt')}
                   </label>
                   <AnimatedInputWrapper>
                     <textarea
@@ -197,14 +199,14 @@ function StickerBatchStage({
                 </div>
                 <div className="flex gap-2 justify-end">
                   <Button variant="outline" size="sm" onClick={cancelEdit}>
-                    취소
+                    {t('stickers.cancel')}
                   </Button>
                   <Button
                     size="sm"
                     onClick={() => saveEdit(sticker.id)}
                     aria-label="Save and regenerate"
                   >
-                    저장 후 재생성
+                    {t('stickers.saveAndRegen')}
                   </Button>
                 </div>
               </div>
@@ -221,7 +223,7 @@ function StickerBatchStage({
           aria-label="Go back"
           data-testid="back-btn"
         >
-          이전
+          {t('strategy.back')}
         </Button>
       </div>
     </section>

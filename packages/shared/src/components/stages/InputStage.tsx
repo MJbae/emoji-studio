@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useId } from 'react';
 import { Image as ImageIcon, Sparkles } from 'lucide-react';
 import type { UserInput } from '@/types/domain';
@@ -19,6 +20,7 @@ const LANG_META: Record<(typeof LANGUAGES)[number], { native: string }> = {
 };
 
 function InputStage({ onSubmit, initialData }: InputStageProps) {
+  const { t } = useTranslation();
   const [data, setData] = useState<UserInput>(
     initialData ?? {
       concept: '',
@@ -55,23 +57,23 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
       <div className="text-center space-y-2">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
           <Sparkles size={14} />
-          1단계
+          {t('input.step1')}
         </div>
-        <h2 className="text-3xl font-bold text-text">이모지 세트 시작하기</h2>
-        <p className="text-text-muted">캐릭터 컨셉을 설명하면 AI가 자동으로 생성합니다.</p>
+        <h2 className="text-3xl font-bold text-text">{t('input.title')}</h2>
+        <p className="text-text-muted">{t('input.subtitle')}</p>
       </div>
 
       <div className="bg-white p-8 rounded-2xl shadow-xs border border-slate-100 space-y-6">
         <div className="space-y-1.5">
           <label htmlFor={conceptId} className="block text-sm font-medium text-slate-700">
-            캐릭터 컨셉 <span className="text-danger">*</span>
+            {t('input.conceptLabel')} <span className="text-danger">*</span>
           </label>
           <AnimatedInputWrapper>
             <textarea
               id={conceptId}
               value={data.concept}
               onChange={(e) => setData((prev) => ({ ...prev, concept: e.target.value }))}
-              placeholder="예: 해바라기씨와 게임을 좋아하는 귀여운 통통한 햄스터"
+              placeholder={t('input.conceptPlaceholder')}
               aria-label="Character concept description"
               data-testid="concept-textarea"
               className="h-28 sm:h-32 w-full resize-none bg-transparent p-3 sm:p-4 text-sm outline-none"
@@ -79,13 +81,13 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
           </AnimatedInputWrapper>
           <p className="text-xs text-text-muted">
             {data.concept.length < 3
-              ? `${3 - data.concept.length}자 더 필요`
-              : `${data.concept.length}자`}
+              ? t('input.charsNeeded', { count: 3 - data.concept.length })
+              : t('input.charsCount', { count: data.concept.length })}
           </p>
         </div>
 
         <fieldset className="space-y-1.5">
-          <legend className="block text-sm font-medium text-slate-700 mb-2">타깃 시장</legend>
+          <legend className="block text-sm font-medium text-slate-700 mb-2">{t('input.targetMarket')}</legend>
           <div
             className="grid grid-cols-1 sm:grid-cols-3 gap-3"
             role="radiogroup"
@@ -132,7 +134,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
 
         <div className="space-y-1.5">
           <label htmlFor={fileId} className="block text-sm font-medium text-slate-700">
-            참고 이미지 (선택사항)
+            {t('input.referenceImage')}
           </label>
           <div
             className={cn(
@@ -157,15 +159,15 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
                     alt="Reference preview"
                     className="mx-auto h-40 object-contain rounded-lg"
                   />
-                  <p className="mt-2 text-xs text-text-muted">클릭하여 변경</p>
+                  <p className="mt-2 text-xs text-text-muted">{t('input.clickToChange')}</p>
                 </div>
               ) : (
                 <>
                   <ImageIcon className="mx-auto h-10 w-10 text-slate-400" />
                   <p className="mt-2 text-sm text-slate-600">
-                    <span className="font-medium text-primary">업로드</span> 또는 드래그
+                    <span className="font-medium text-primary">{t('input.upload')}</span> {t('input.orDrag')}
                   </p>
-                  <p className="text-xs text-text-muted">PNG, JPG 최대 10MB</p>
+                  <p className="text-xs text-text-muted">{t('input.imageReqs')}</p>
                 </>
               )}
             </div>
@@ -174,9 +176,9 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
 
         <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
           <div className="space-y-0.5">
-            <p className="text-sm font-medium text-slate-700">참고 이미지를 베이스 캐릭터로 사용</p>
+            <p className="text-sm font-medium text-slate-700">{t('input.useAsBase')}</p>
             <p className="text-xs text-text-muted">
-              AI 캐릭터 생성을 건너뛰고, 업로드한 이미지를 바로 사용합니다
+              {t('input.skipCharGen')}
             </p>
           </div>
           <button
@@ -214,7 +216,7 @@ function InputStage({ onSubmit, initialData }: InputStageProps) {
             aria-label="Analyze concept and proceed"
             data-testid="analyze-btn"
           >
-            컨셉 분석 →
+            {t('input.analyzeConcept')}
           </Button>
         </div>
       </div>

@@ -147,7 +147,6 @@ export interface ProcessedImage {
 export interface LanguageEntry {
   code: LanguageCode;
   label: string;
-  flag: string;
   required: boolean;
   nativeName: string;
 }

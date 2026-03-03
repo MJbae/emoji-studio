@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Sparkles, Settings } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -8,6 +9,8 @@ interface AppShellProps {
 }
 
 function AppShell({ children, hasApiKey, onOpenSettings }: AppShellProps) {
+  const { t } = useTranslation();
+
   return (
     <div
       data-testid="app-shell"
@@ -36,7 +39,7 @@ function AppShell({ children, hasApiKey, onOpenSettings }: AppShellProps) {
                 className={cn('w-2 h-2 rounded-full', hasApiKey ? 'bg-success' : 'bg-warning')}
               />
               <span className="text-text-muted hidden sm:inline">
-                {hasApiKey ? 'API 연결됨' : 'API 키 없음'}
+                {hasApiKey ? t('app.apiConnected') : t('app.apiMissing')}
               </span>
             </button>
             <button

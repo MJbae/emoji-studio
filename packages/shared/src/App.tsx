@@ -1,4 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/i18n';
 import { useAppStore } from '@/store/appStore';
 import { useExposeApi } from '@/hooks/useExposeApi';
 import type { WorkflowStage } from '@/store/slices/workflowSlice';
@@ -40,26 +42,25 @@ import { PostProcessStage } from '@/components/stages/PostProcessStage';
 import { MetadataStage } from '@/components/stages/MetadataStage';
 
 const LANGUAGES: LanguageEntry[] = [
-  { code: 'en', label: 'English', flag: '🇺🇸', required: true, nativeName: 'English' },
-  { code: 'ko', label: 'Korean', flag: '🇰🇷', required: false, nativeName: '한국어' },
-  { code: 'ja', label: 'Japanese', flag: '🇯🇵', required: false, nativeName: '日本語' },
+  { code: 'en', label: 'English', required: true, nativeName: 'English' },
+  { code: 'ko', label: 'Korean', required: false, nativeName: '한국어' },
+  { code: 'ja', label: 'Japanese', required: false, nativeName: '日本語' },
   {
     code: 'zh-TW',
     label: 'Traditional Chinese',
-    flag: '🇹🇼',
     required: false,
     nativeName: '繁體中文',
   },
   {
     code: 'zh-CN',
     label: 'Simplified Chinese',
-    flag: '🇨🇳',
     required: false,
     nativeName: '简体中文',
   },
 ];
 
 function App() {
+  const { t } = useTranslation();
   useExposeApi();
   useMigrateApiKey();
 
@@ -95,7 +96,9 @@ function App() {
     outlineThickness: 4,
     outlineOpacity: 100,
   });
-  const [metaLanguages, setMetaLanguages] = useState<Set<LanguageCode>>(new Set(['en']));
+  const [metaLanguages, setMetaLanguages] = useState<Set<LanguageCode>>(
+    new Set(LANGUAGES.map((l) => l.code)),
+  );
 
   // Per-stage async state
   const [strategyLoading, setStrategyLoading] = useState(false);
@@ -167,7 +170,7 @@ function App() {
         const result = await analyzeConcept(userInput);
         useAppStore.getState().setStrategy(result);
       } catch (e) {
-        setStrategyError(e instanceof Error ? e.message : '분석에 실패했습니다');
+        setStrategyError(e instanceof Error ? e.message : t('app.analysisFailed'));
       } finally {
         setStrategyLoading(false);
       }
@@ -216,7 +219,7 @@ function App() {
           useAppStore.getState().setCharacterSpec(spec);
         }
       } catch (e) {
-        setCharacterError(e instanceof Error ? e.message : '캐릭터 생성에 실패했습니다');
+        setCharacterError(e instanceof Error ? e.message : t('app.charGenFailed'));
       } finally {
         setCharacterLoading(false);
       }
@@ -472,6 +475,33 @@ function App() {
         allResults.push(...results);
       }
       state.setMetadata(allResults);
+
+      // Auto-select the highest scoring result for each language
+      setSelectedMetaMap((prev) => {
+        const next = new Map(prev);
+        for (const lang of metaLanguages) {
+          const langResults = allResults.filter((r) => r.language === lang);
+          if (langResults.length > 0) {
+            const bestResult = langResults.reduce((best, current) => {
+              const bestScore =
+                (best.evaluation.naturalness +
+                  best.evaluation.tone +
+                  best.evaluation.searchability +
+                  best.evaluation.creativity) /
+                4;
+              const currentScore =
+                (current.evaluation.naturalness +
+                  current.evaluation.tone +
+                  current.evaluation.searchability +
+                  current.evaluation.creativity) /
+                4;
+              return currentScore > bestScore ? current : best;
+            }, langResults[0]!);
+            next.set(lang, bestResult);
+          }
+        }
+        return next;
+      });
     } catch (e) {
       console.error('Metadata generation failed:', e);
     } finally {
@@ -502,7 +532,7 @@ function App() {
         blob = await generatePostProcessedZip(processedImages, defaultPlatform, metaForExport);
       } else {
         const mainImg = state.mainImage;
-        if (!mainImg) throw new Error('내보낼 이미지가 없습니다');
+        if (!mainImg) throw new Error(t('app.noImageToExport'));
         blob = await generateStickerZip(state.stickers, defaultPlatform, mainImg, metaForExport);
       }
       setExportProgress(80);
@@ -512,7 +542,7 @@ function App() {
       await platform.saveFile(data, fileName);
       setExportProgress(100);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : '내보내기에 실패했습니다';
+      const msg = e instanceof Error ? e.message : t('app.exportFailed');
       console.error('Export failed:', e);
       setExportError(msg);
     } finally {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Wand2, Image as ImageIcon } from 'lucide-react';
 import type { ProcessingOptions as ProcessingOptionsType } from '@/types/domain';
 import { ProcessingOptions } from '@/components/ui/ProcessingOptions';
@@ -27,6 +28,7 @@ function PostProcessStage({
   onContinue,
   onBack,
 }: PostProcessStageProps) {
+  const { t } = useTranslation();
   const [previewBg, setPreviewBg] = useState<PreviewBg>('white');
 
   return (
@@ -34,16 +36,16 @@ function PostProcessStage({
       <div className="text-center space-y-2">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
           <Wand2 size={14} />
-          후처리
+          {t('postprocess.step5')}
         </div>
-        <h2 className="text-3xl font-bold text-text">이모지 보정하기</h2>
+        <h2 className="text-3xl font-bold text-text">{t('postprocess.title')}</h2>
         <p className="text-text-muted">
-          처리 옵션을 조정하세요. 다음 단계로 진행하면 자동 적용됩니다.
+          {t('postprocess.subtitle')}
         </p>
       </div>
 
       <p className="text-sm text-text-muted text-center">
-        {selectedIds.size}개 이미지에 적용됩니다.
+        {t('postprocess.applyCount', { count: selectedIds.size })}
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -53,7 +55,7 @@ function PostProcessStage({
 
         <div className="lg:col-span-2 bg-slate-100 rounded-2xl p-6 flex flex-col min-h-[400px]">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-text-muted text-sm">실시간 미리보기</h3>
+            <h3 className="font-semibold text-text-muted text-sm">{t('postprocess.livePreview')}</h3>
             <div
               className="flex items-center gap-1 bg-slate-200 rounded-lg p-0.5"
               role="radiogroup"
@@ -118,7 +120,7 @@ function PostProcessStage({
                 )}
               >
                 <ImageIcon size={40} />
-                <span className="text-sm">미리볼 이미지를 선택하세요</span>
+                <span className="text-sm">{t('postprocess.selectImage')}</span>
               </div>
             )}
           </div>
@@ -127,7 +129,7 @@ function PostProcessStage({
 
       <div className="flex flex-col-reverse sm:flex-row justify-between pt-4 gap-3 sm:gap-0">
         <Button variant="outline" onClick={onBack} aria-label="Go back" data-testid="back-btn" className="w-full sm:w-auto">
-          이전
+          {t('strategy.back')}
         </Button>
         <Button
           onClick={onContinue}
@@ -137,7 +139,7 @@ function PostProcessStage({
           data-testid="continue-btn"
           className="w-full sm:w-auto"
         >
-          다음 →
+          {t('strategy.next')}
         </Button>
       </div>
     </section>
