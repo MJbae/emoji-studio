@@ -43,19 +43,7 @@ function StageStepper({ currentStage, mode, completedStages, onStageClick }: Sta
             const isClickable = isCompleted;
 
             return (
-              <li key={step.id} className="flex-1 flex flex-col items-center gap-1.5 group relative">
-                {/* Connecting lines container */}
-                <div className="absolute top-4 left-0 w-full flex items-center h-0.5 -z-10 px-[50%]">
-                  {index > 0 && (
-                    <div
-                      className={cn(
-                        'absolute right-[50%] left-[-50%] h-full transition-colors',
-                        index <= currentIndex ? 'bg-primary' : 'bg-slate-200'
-                      )}
-                    />
-                  )}
-                </div>
-
+              <li key={step.id} className="flex-1 flex items-center">
                 <button
                   onClick={() => isClickable && onStageClick(step.id)}
                   disabled={!isClickable}
@@ -64,26 +52,45 @@ function StageStepper({ currentStage, mode, completedStages, onStageClick }: Sta
                   data-stage={step.id}
                   data-testid={`stage-step-${step.id}`}
                   className={cn(
-                    'flex flex-col items-center gap-1.5 focus:outline-none',
-                    isClickable ? 'cursor-pointer hover:opacity-80' : 'cursor-default'
+                    'w-full flex flex-col items-center gap-1.5 group relative',
+                    isClickable && 'cursor-pointer',
+                    !isClickable && !isCurrent && 'cursor-default',
                   )}
                 >
-                  <div
-                    className={cn(
-                      'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all bg-surface relative z-0',
-                      isCompleted ? 'bg-primary text-white' : '',
-                      isCurrent && !isCompleted ? 'bg-primary text-white ring-3 ring-primary/20' : '',
-                      !isCurrent && !isCompleted ? 'bg-slate-200 text-slate-500' : ''
+                  <div className="flex items-center w-full">
+                    {index > 0 && (
+                      <div
+                        className={cn(
+                          'flex-1 h-0.5 transition-colors',
+                          index <= currentIndex ? 'bg-primary' : 'bg-slate-200',
+                        )}
+                      />
                     )}
-                  >
-                    {isCompleted ? <Check size={14} /> : index + 1}
+                    <div
+                      className={cn(
+                        'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all',
+                        isCompleted && 'bg-primary text-white',
+                        isCurrent && !isCompleted && 'bg-primary text-white ring-3 ring-primary/20',
+                        !isCurrent && !isCompleted && 'bg-slate-200 text-slate-500',
+                      )}
+                    >
+                      {isCompleted ? <Check size={14} /> : index + 1}
+                    </div>
+                    {index < steps.length - 1 && (
+                      <div
+                        className={cn(
+                          'flex-1 h-0.5 transition-colors',
+                          index < currentIndex ? 'bg-primary' : 'bg-slate-200',
+                        )}
+                      />
+                    )}
                   </div>
                   <span
                     className={cn(
-                      'text-[10px] sm:text-xs font-medium transition-colors leading-tight text-center whitespace-nowrap',
-                      isCurrent ? 'text-primary' : '',
-                      isCompleted && !isCurrent ? 'text-slate-600' : '',
-                      !isCurrent && !isCompleted ? 'text-slate-400' : ''
+                      'text-[10px] sm:text-xs font-medium transition-colors leading-tight text-center',
+                      isCurrent && 'text-primary',
+                      isCompleted && !isCurrent && 'text-slate-600',
+                      !isCurrent && !isCompleted && 'text-slate-400',
                     )}
                   >
                     <span className="hidden sm:inline">{step.label}</span>
