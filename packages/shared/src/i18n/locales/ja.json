@@ -115,5 +115,19 @@
         "tone": "トーン",
         "seo": "SEO",
         "creativity": "創造性"
+    },
+    "setup": {
+        "apiTitle": "APIキー設定",
+        "apiSubtitle": "Google Gemini APIキーを入力してください",
+        "apiKeyLabel": "Gemini APIキー",
+        "apiKeyPlaceholder": "AIza...",
+        "showKey": "APIキーを表示",
+        "hideKey": "APIキーを隠す",
+        "keyStorageInfo": "キーはブラウザにのみ保存され、外部に送信されません。",
+        "keyIssue": "キーの取得:",
+        "validating": "検証中...",
+        "saveAndContinue": "保存して続行",
+        "minError": "APIキーは10文字以上である必要があります。",
+        "invalidError": "APIキーが無効です。キーを確認してください。"
     }
 }

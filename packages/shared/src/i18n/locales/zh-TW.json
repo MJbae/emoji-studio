@@ -115,5 +115,19 @@
         "tone": "語氣",
         "seo": "SEO（搜尋引擎最佳化）",
         "creativity": "創意度"
+    },
+    "setup": {
+        "apiTitle": "API 金鑰設定",
+        "apiSubtitle": "請輸入您的 Google Gemini API 金鑰",
+        "apiKeyLabel": "Gemini API 金鑰",
+        "apiKeyPlaceholder": "AIza...",
+        "showKey": "顯示 API 金鑰",
+        "hideKey": "隱藏 API 金鑰",
+        "keyStorageInfo": "金鑰僅儲存在您的瀏覽器中，不會傳送到外部。",
+        "keyIssue": "取得金鑰:",
+        "validating": "驗證中...",
+        "saveAndContinue": "儲存並繼續",
+        "minError": "API 金鑰長度至少需要 10 個字元。",
+        "invalidError": "API 金鑰無效。請確認您的金鑰。"
     }
 }

@@ -115,5 +115,19 @@
         "tone": "톤",
         "seo": "SEO",
         "creativity": "창의성"
+    },
+    "setup": {
+        "apiTitle": "API 키 설정",
+        "apiSubtitle": "Google Gemini API 키를 입력하세요",
+        "apiKeyLabel": "Gemini API 키",
+        "apiKeyPlaceholder": "AIza...",
+        "showKey": "API 키 보기",
+        "hideKey": "API 키 숨기기",
+        "keyStorageInfo": "키는 브라우저에만 저장되며 외부로 전송되지 않습니다.",
+        "keyIssue": "키 발급:",
+        "validating": "검증 중...",
+        "saveAndContinue": "저장 후 계속",
+        "minError": "API 키는 최소 10자 이상이어야 합니다.",
+        "invalidError": "API 키가 유효하지 않습니다. 키를 확인해 주세요."
     }
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles, Eye, EyeOff, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { AnimatedInputWrapper } from '@/components/ui/AnimatedInputWrapper';
@@ -12,6 +13,7 @@ interface ApiKeyModalProps {
 }
 
 function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModalProps) {
+  const { t } = useTranslation();
   const [key, setKey] = useState('');
   const [showKey, setShowKey] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +26,7 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
   const handleSave = async () => {
     const trimmed = key.trim();
     if (trimmed.length < 10) {
-      setError('API 키는 최소 10자 이상이어야 합니다.');
+      setError(t('setup.minError'));
       return;
     }
 
@@ -35,7 +37,7 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
       await generateText({ contents: 'hi' }, trimmed);
       onSave(trimmed);
     } catch {
-      setError('API 키가 유효하지 않습니다. 키를 확인해 주세요.');
+      setError(t('setup.invalidError'));
     } finally {
       setValidating(false);
     }
@@ -57,8 +59,8 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
                 <Sparkles className="text-primary" size={20} />
               </div>
               <div>
-                <h2 className="font-bold text-text text-lg">API 키 설정</h2>
-                <p className="text-sm text-text-muted">Google Gemini API 키를 입력하세요</p>
+                <h2 className="font-bold text-text text-lg">{t('setup.apiTitle')}</h2>
+                <p className="text-sm text-text-muted">{t('setup.apiSubtitle')}</p>
               </div>
             </div>
             {dismissable && onClose && (
@@ -75,7 +77,7 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
 
           <div className="space-y-1.5">
             <label htmlFor="api-key-input" className="text-sm font-medium text-slate-700">
-              Gemini API 키
+              {t('setup.apiKeyLabel')}
             </label>
             <AnimatedInputWrapper error={!!error}>
               <input
@@ -87,15 +89,15 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
                   setError(null);
                 }}
                 onKeyDown={(e) => e.key === 'Enter' && isValid && handleSave()}
-                placeholder="AIza..."
-                aria-label="Gemini API key"
+                placeholder={t('setup.apiKeyPlaceholder')}
+                aria-label={t('setup.apiKeyLabel')}
                 data-testid="api-key-input"
                 className="w-full bg-transparent px-4 py-2.5 pr-10 text-sm text-slate-700 outline-none placeholder:text-slate-400"
               />
               <button
                 type="button"
                 onClick={() => setShowKey((s) => !s)}
-                aria-label={showKey ? 'API 키 숨기기' : 'API 키 보기'}
+                aria-label={showKey ? t('setup.hideKey') : t('setup.showKey')}
                 data-testid="toggle-key-visibility"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text z-20"
               >
@@ -110,9 +112,9 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
           </div>
 
           <div className="bg-slate-50 rounded-lg p-3 text-xs text-text-muted space-y-1">
-            <p>키는 브라우저에만 저장되며 외부로 전송되지 않습니다.</p>
+            <p>{t('setup.keyStorageInfo')}</p>
             <p>
-              키 발급:{' '}
+              {t('setup.keyIssue')}{' '}
               <a
                 href="https://aistudio.google.com/apikey"
                 target="_blank"
@@ -129,10 +131,10 @@ function ApiKeyModal({ open, onSave, onClose, dismissable = false }: ApiKeyModal
             disabled={validating}
             className="w-full"
             size="lg"
-            aria-label="Save API key"
+            aria-label={t('setup.saveAndContinue')}
             data-testid="save-api-key-btn"
           >
-            {validating ? '검증 중...' : '저장 후 계속'}
+            {validating ? t('setup.validating') : t('setup.saveAndContinue')}
           </Button>
         </div>
       </div>

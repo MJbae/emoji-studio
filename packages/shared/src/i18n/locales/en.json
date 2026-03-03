@@ -115,5 +115,19 @@
         "tone": "Tone",
         "seo": "SEO",
         "creativity": "Creativity"
+    },
+    "setup": {
+        "apiTitle": "API Key Setup",
+        "apiSubtitle": "Enter your Google Gemini API key",
+        "apiKeyLabel": "Gemini API Key",
+        "apiKeyPlaceholder": "AIza...",
+        "showKey": "Show API Key",
+        "hideKey": "Hide API Key",
+        "keyStorageInfo": "The key is only stored in your browser and is not sent externally.",
+        "keyIssue": "Get a key:",
+        "validating": "Validating...",
+        "saveAndContinue": "Save and Continue",
+        "minError": "API key must be at least 10 characters long.",
+        "invalidError": "Invalid API key. Please check your key."
     }
 }

@@ -113,7 +113,21 @@
         "qualityScore": "质量分数",
         "naturalness": "自然度",
         "tone": "语气",
-        "seo": "SEO（搜索引擎优化）",
-        "creativity": "创意度"
+        "seo": "SEO",
+        "creativity": "创意"
+    },
+    "setup": {
+        "apiTitle": "API 密钥设置",
+        "apiSubtitle": "请输入您的 Google Gemini API 密钥",
+        "apiKeyLabel": "Gemini API 密钥",
+        "apiKeyPlaceholder": "AIza...",
+        "showKey": "显示 API 密钥",
+        "hideKey": "隐藏 API 密钥",
+        "keyStorageInfo": "密钥仅存储在您的浏览器中，不会发送到外部。",
+        "keyIssue": "获取密钥:",
+        "validating": "验证中...",
+        "saveAndContinue": "保存并继续",
+        "minError": "API 密钥长度至少需要 10 个字符。",
+        "invalidError": "API 密钥无效。请检查您的密钥。"
     }
 }
